@@ -131,3 +131,68 @@
 .transparent-scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
+
+/* =========================
+ * 노트 유형 선택 다이얼로그
+ * ====================== */
+
+/* Alert/DialogPane 전체 배경 */
+.dialog-pane.note-type-dialog {
+    -fx-background-color: #faf8ff;
+    -fx-border-color: #e9d5ff;
+    -fx-border-radius: 18;
+    -fx-background-radius: 18;
+    -fx-padding: 16 20 14 20;
+}
+
+/* 제목 */
+.note-type-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d1b4e;
+}
+
+/* 서브텍스트 */
+.note-type-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6d28d9;
+}
+
+/* 기본 버튼 스타일 */
+.button.note-type-choice {
+    -fx-background-radius: 999;
+    -fx-padding: 8 16;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+/* 일반 노트 버튼 */
+.button.note-type-normal {
+    -fx-background-color: #e9d5ff;
+    -fx-text-fill: #7c3aed;
+}
+
+.button.note-type-normal:hover {
+    -fx-background-color: #c084fc;
+    -fx-text-fill: white;
+}
+
+/* 개념 노트 버튼 */
+.button.note-type-concept {
+    -fx-background-color: linear-gradient(#7c3aed, #6d28d9);
+    -fx-text-fill: white;
+}
+
+.button.note-type-concept:hover {
+    -fx-background-color: linear-gradient(#a78bfa, #7c3aed);
+}
+
+/* 취소 버튼 */
+.button.note-type-cancel {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6d28d9;
+    -fx-border-color: #e9d5ff;
+    -fx-border-radius: 999;
+    -fx-background-radius: 999;
+    -fx-padding: 6 14;
+}

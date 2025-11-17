@@ -10,10 +10,12 @@ public class NoteRepository {
     public static List<Note> findRecent(int limit) {
         List<Note> notes = new ArrayList<>();
 
-        String sql = "SELECT id, title, content, created_at, updated_at " +
-                "FROM notes " +
-                "ORDER BY datetime(updated_at) DESC " +
-                "LIMIT ?";
+        String sql = """
+                SELECT id, title, content, created_at, updated_at, type
+                FROM notes
+                ORDER BY datetime(updated_at) DESC
+                LIMIT ?
+                """;
 
         try (Connection conn = Database.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -27,7 +29,8 @@ public class NoteRepository {
                             rs.getString("title"),
                             rs.getString("content"),
                             rs.getString("created_at"),
-                            rs.getString("updated_at"));
+                            rs.getString("updated_at"),
+                            rs.getString("type"));
                     notes.add(note);
                 }
             }
@@ -40,19 +43,74 @@ public class NoteRepository {
         return notes;
     }
 
-    // 새 노트 INSERT
+    // 새 노트 INSERT (id 세팅까지 해줌)
     public static void insert(Note note) {
-        String sql = "INSERT INTO notes (title, content) VALUES (?, ?)";
+        String sql = "INSERT INTO notes (title, content, type) VALUES (?, ?, ?)";
+
+        try (Connection conn = Database.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, note.getTitle());
+            pstmt.setString(2, note.getContent());
+            pstmt.setString(3, note.getType());
+
+            int affected = pstmt.executeUpdate();
+            if (affected > 0) {
+                try (ResultSet keys = pstmt.getGeneratedKeys()) {
+                    if (keys.next()) {
+                        note.setId(keys.getInt(1));
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("[DB] 노트 저장 중 오류 발생");
+            e.printStackTrace();
+        }
+    }
+
+    // 노트 내용 수정 (제목, 내용)
+    public static void update(Note note) {
+        String sql = "UPDATE notes " +
+                "SET title = ?, content = ?, updated_at = CURRENT_TIMESTAMP " +
+                "WHERE id = ?";
 
         try (Connection conn = Database.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, note.getTitle());
             pstmt.setString(2, note.getContent());
+            pstmt.setInt(3, note.getId());
+
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("[DB] 노트 저장 중 오류 발생");
+            System.out.println("[DB] 노트 수정 중 오류 발생");
+            e.printStackTrace();
+        }
+    }
+
+    // 노트 삭제 + 관련 개념 페어 삭제
+    public static void delete(int id) {
+        String deletePairsSql = "DELETE FROM concept_pairs WHERE note_id = ?";
+        String deleteNoteSql = "DELETE FROM notes WHERE id = ?";
+
+        try (Connection conn = Database.getConnection();
+                PreparedStatement deletePairs = conn.prepareStatement(deletePairsSql);
+                PreparedStatement deleteNote = conn.prepareStatement(deleteNoteSql)) {
+
+            conn.setAutoCommit(false);
+
+            deletePairs.setInt(1, id);
+            deletePairs.executeUpdate();
+
+            deleteNote.setInt(1, id);
+            deleteNote.executeUpdate();
+
+            conn.commit();
+
+        } catch (SQLException e) {
+            System.out.println("[DB] 노트 삭제 중 오류 발생");
             e.printStackTrace();
         }
     }
