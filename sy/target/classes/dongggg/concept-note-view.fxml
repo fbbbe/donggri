@@ -20,7 +20,7 @@
             <children>
                 <TextField fx:id="titleField"
                            promptText="제목을 입력하세요..."
-                           style="-fx-background-radius: 12; -fx-background-color: white; -fx-padding: 8 10; -fx-border-color: #e9d5ff; -fx-border-radius: 12;"/>
+                           styleClass="note-pill-input"/>
             </children>
         </VBox>
     </top>
@@ -43,7 +43,9 @@
                 </HBox>
 
                 <!-- ✅ 좌우로 나뉘는 SplitPane (세로선 드래그로 좌우 비율 조절) -->
-                <SplitPane orientation="HORIZONTAL" dividerPositions="0.25">
+                <SplitPane orientation="HORIZONTAL"
+                           dividerPositions="0.25"
+                           styleClass="concept-split-pane">
                     <items>
 
                         <!-- 왼쪽: 개념 입력 칼럼 (ScrollPane 제거) -->

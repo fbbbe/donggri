@@ -104,13 +104,13 @@ public class ConceptNoteController {
         TextArea termArea = new TextArea();
         termArea.setPromptText("Ex. 데이터의 정의");
         termArea.setWrapText(true);
-        termArea.getStyleClass().add("concept-input");
+        termArea.getStyleClass().addAll("concept-input", "note-pill-input");
 
         // 오른쪽: 설명 입력 TextArea
         TextArea explanationArea = new TextArea();
         explanationArea.setPromptText("설명을 입력하세요");
         explanationArea.setWrapText(true);
-        explanationArea.getStyleClass().add("explanation-input");
+        explanationArea.getStyleClass().addAll("explanation-input", "note-pill-input");
 
         // 처음에는 한 줄만 보이도록
         termArea.setPrefRowCount(1);
