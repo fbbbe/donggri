@@ -21,10 +21,11 @@
 
                 <!-- 타이틀 -->
                 <Label text="✏️  시험 시작하기"
-                       styleClass="section-title"/>
+                       styleClass="section-title" />
 
                 <Label text="개념노트 기반 문제를 풀어볼까요?"
                        styleClass="profile-subtitle"/>
+
             </children>
         </VBox>
     </top>
@@ -38,25 +39,22 @@
 
             <children>
 
-                <!-- 선택 카드 -->
                 <VBox spacing="20" alignment="TOP_CENTER"
-                    styleClass="quiz-card">
+                      styleClass="quiz-card">
 
                     <Label text="시험할 개념 노트를 선택하세요"
-                        styleClass="quiz-title"/>
+                           styleClass="quiz-title"/>
 
                     <ComboBox fx:id="noteSelectCombo"
-                            promptText="개념 노트 선택..."
-                            prefWidth="350"
-                            styleClass="combo-large"/>
+                              prefWidth="350"
+                              styleClass="combo-large"/>
 
                     <Button fx:id="startButton"
-                        text="시험 시작"
-                        layoutX="500" layoutY="400"
-                        styleClass="button-primary"/>
+                            text="시험 시작"
+                            styleClass="button-primary"
+                            onAction="#startQuiz"/>
 
                 </VBox>
-
 
             </children>
         </VBox>
