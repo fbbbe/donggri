@@ -8,7 +8,9 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -31,9 +33,6 @@ public class MainController {
     private TextField searchField;
 
     @FXML
-    private Button newFolderButton;
-
-    @FXML
     private Button newNoteButton;
 
     @FXML
@@ -50,6 +49,7 @@ public class MainController {
         loadRecentNotes();
         applyFolderHoverAnimations();
     }
+
 
     /**
      * 최근 노트 목록을 DB에서 읽어서 화면에 뿌려주는 메서드.
@@ -131,11 +131,6 @@ public class MainController {
                         6, 18,
                         0.02, 0.16
                 ));
-    }
-
-    @FXML
-    private void onNewFolder() {
-        System.out.println("새 폴더 클릭");
     }
 
     @FXML

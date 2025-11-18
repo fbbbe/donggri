@@ -8,7 +8,8 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="dongggg.MainController"
-            styleClass="root-pane main-root">
+            styleClass="root-pane main-root"
+            style="-fx-background-color: #fdf4ff;">
 
     <top>
         <VBox spacing="18" styleClass="main-header">
@@ -47,12 +48,6 @@
                                    HBox.hgrow="ALWAYS"
                                    styleClass="search-field"/>
                     </HBox>
-
-                    <Button fx:id="newFolderButton"
-                            text="⚙"
-                            onAction="#onNewFolder"
-                            prefWidth="44" prefHeight="44"
-                            styleClass="primary-icon-button soft-icon-button"/>
 
                     <Button fx:id="newNoteButton"
                             text="+"

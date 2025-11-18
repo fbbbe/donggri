@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,6 +12,9 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static final String MAIN_STYLESHEET =
+            App.class.getResource("styles.css").toExternalForm();
+    private static final Color ROOT_BACKGROUND = Color.web("#fdf4ff");
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -21,9 +25,7 @@ public class App extends Application {
         Parent root = loader.load();
 
         scene = new Scene(root, 1200, 720);
-        scene.getStylesheets().add(
-                App.class.getResource("styles.css").toExternalForm()
-        );
+        reloadStylesheet();
 
         stage.setTitle("동그리 노트");
         stage.setScene(scene);
@@ -39,6 +41,7 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("main-view.fxml"));
             Parent root = loader.load();
             scene.setRoot(root);
+            reloadStylesheet();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,6 +56,7 @@ public class App extends Application {
             controller.setNote(note);
 
             scene.setRoot(root);
+            reloadStylesheet();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,6 +71,7 @@ public class App extends Application {
             controller.setNote(note);
 
             scene.setRoot(root);
+            reloadStylesheet();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,6 +82,7 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("note-type-select-view.fxml"));
             Parent root = loader.load();
             scene.setRoot(root);
+            reloadStylesheet();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,8 +96,7 @@ public class App extends Application {
             scene.setRoot(root);
 
             // ⭐ CSS 강제 재적용
-            scene.getStylesheets().clear();
-            scene.getStylesheets().add(App.class.getResource("styles.css").toExternalForm());
+            reloadStylesheet();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,8 +110,17 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("quiz-start-view.fxml"));
             Parent root = loader.load();
             scene.setRoot(root);
+            reloadStylesheet();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void reloadStylesheet() {
+        if (scene != null) {
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(MAIN_STYLESHEET);
+            scene.setFill(ROOT_BACKGROUND);
         }
     }
 
