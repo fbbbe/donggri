@@ -19,7 +19,6 @@ public class QuizStartController {
     @FXML private Button startButton;         // 시험 시작 버튼
 
     private List<NoteCardController> cardControllers = new ArrayList<>();
-
     private final QuizService quizService = new QuizServiceImpl();
 
     @FXML
@@ -36,8 +35,8 @@ public class QuizStartController {
                 NoteCardController controller = loader.getController();
                 controller.setData(note);
 
-                // 체크박스 이벤트 → 선택 개수 갱신
-                controller.getCheckBox().selectedProperty().addListener((obs, oldV, newV) -> updateSelectedCount());
+                // 체크박스 선택 감지 → 선택 개수 갱신
+                controller.getCheckBox().selectedProperty().addListener((o, oldV, newV) -> updateSelectedCount());
 
                 cardControllers.add(controller);
                 noteListBox.getChildren().add(card);
@@ -58,7 +57,7 @@ public class QuizStartController {
         startButton.setDisable(count == 0);
     }
 
-    // 뒤로 가기 (선택 사항)
+    // 뒤로 가기
     @FXML
     private void goBack() {
         try {
@@ -71,11 +70,11 @@ public class QuizStartController {
         }
     }
 
-    // 시험 시작 → QuizController로 선택된 Note 목록 전달
+    // 시험 시작
     @FXML
     public void startQuiz() {
 
-        // 선택된 노트만 필터링
+        // 선택된 노트 모으기
         List<Note> selectedNotes = cardControllers.stream()
                 .filter(NoteCardController::isSelected)
                 .map(NoteCardController::getNote)
@@ -83,14 +82,16 @@ public class QuizStartController {
 
         if (selectedNotes.isEmpty()) return;
 
+        Note firstNote = selectedNotes.get(0);
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz-view.fxml"));
             Parent root = loader.load();
 
             QuizController controller = loader.getController();
 
-            // 📌 단일 노트만 지원한다면 첫 번째 노트만 넘겨주기
-            controller.initQuiz(selectedNotes.get(0).getId());
+            // 첫 노트 ID로 시험 문제 초기화
+            controller.initQuiz(firstNote.getId());
 
             Stage stage = (Stage) noteListBox.getScene().getWindow();
             stage.setScene(new Scene(root));

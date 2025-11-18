@@ -26,21 +26,25 @@ public class QuizController {
 
     public void initQuiz(int noteId) {
 
-        // 🔥 문제 5개 생성!
+        // 🔥 실제 DB 문제 생성
         quizList = quizService.generateQuiz(noteId, 5);
 
+        // 🔥 문제 없으면 샘플 3문제 자동 추가
+        // 🔥 문제 없으면 샘플 3문제 자동 추가
         if (quizList == null || quizList.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("문제 없음");
-            alert.setHeaderText("선택한 노트에 문제가 없습니다.");
-            alert.setContentText("개념을 최소 1개 이상 등록한 뒤 시험을 시작하세요.");
-            alert.showAndWait();
-            return;
+
+            quizList = new ArrayList<>();
+
+            quizList.add(new ConceptPair(0, noteId, "클래스(Class)", "객체를 만들기 위한 설계도", 0));
+            quizList.add(new ConceptPair(0, noteId, "객체(Object)", "클래스로부터 생성된 실체", 0));
+            quizList.add(new ConceptPair(0, noteId, "상속(Inheritance)", "부모 클래스 기능을 자식이 물려받는 것", 0));
         }
+
 
         currentIndex = 0;
         loadQuestion(currentIndex);
     }
+
 
     private void loadQuestion(int index) {
         ConceptPair cp = quizList.get(index);
