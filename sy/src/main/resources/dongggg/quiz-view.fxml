@@ -2,20 +2,83 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
 
-<AnchorPane prefWidth="500" prefHeight="350"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dongggg.QuizController">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="dongggg.QuizController"
+            stylesheets="@styles.css"
+            styleClass="quiz-root">
 
-    <VBox spacing="20" alignment="CENTER" layoutX="50" layoutY="30">
+    <!-- 상단 영역 -->
+    <top>
+        <HBox spacing="20" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="20" left="20" right="20" bottom="10"/>
+            </padding>
 
-        <Label fx:id="conceptLabel" text="문제 개념" style="-fx-font-size: 20px;"/>
+            <!-- 뒤로가기 버튼 -->
+            <Button text="◀" onAction="#goBack" styleClass="back-button"/>
 
-        <TextArea fx:id="answerArea" prefWidth="350" prefHeight="120" 
-                  promptText="설명을 입력하세요"/>
+            <VBox alignment="CENTER_LEFT" spacing="2">
+                <Label text="시험 중" styleClass="quiz-title"/>
+                <Label text="개념을 설명해보세요" styleClass="quiz-subtitle"/>
+            </VBox>
 
-        <Button text="다음 문제" onAction="#nextQuestion" prefWidth="150"/>
+            <Pane HBox.hgrow="ALWAYS"/>
 
-        <Label fx:id="progressLabel" text="1 / N 문제"/>
-    </VBox>
-</AnchorPane>
+            <!-- 타이머 + 마스코트 -->
+            <HBox spacing="10" alignment="CENTER">
+                <HBox spacing="5" alignment="CENTER" styleClass="timer-box">
+                    <Label text="⏱" styleClass="timer-text"/>
+                    <Label fx:id="timerLabel" text="00:00" styleClass="timer-text"/>
+                </HBox>
+
+                <Label text="🐥" styleClass="mascot-icon"/>
+            </HBox>
+
+        </HBox>
+    </top>
+
+    <!-- 중앙: 문제 카드 영역 -->
+    <center>
+        <VBox spacing="25">
+            <padding>
+                <Insets top="20" left="20" right="20" bottom="20"/>
+            </padding>
+
+            <!-- 문제 카드 -->
+            <VBox spacing="15" styleClass="question-card">
+
+                <Label text="다음 개념을 설명하세요:" styleClass="question-label"/>
+
+                <VBox styleClass="concept-box">
+                    <Label fx:id="conceptLabel" styleClass="concept-text"/>
+                </VBox>
+
+                <Label text="답변" styleClass="answer-label"/>
+
+                <TextArea fx:id="answerArea"
+                          prefHeight="160"
+                          wrapText="true"
+                          promptText="여기에 답변을 입력하세요..."
+                          styleClass="answer-area"/>
+            </VBox>
+
+        </VBox>
+    </center>
+
+    <!-- 하단 -->
+    <bottom>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="10" left="20" right="20" bottom="20"/>
+            </padding>
+
+            <Button text="다음 문제" onAction="#nextQuestion" styleClass="next-button"/>
+
+            <Label fx:id="progressLabel" alignment="CENTER" />
+        </VBox>
+    </bottom>
+
+</BorderPane>

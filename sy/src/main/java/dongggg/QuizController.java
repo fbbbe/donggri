@@ -30,21 +30,16 @@ public class QuizController {
         quizList = quizService.generateQuiz(noteId, 5);
 
         // 🔥 문제 없으면 샘플 3문제 자동 추가
-        // 🔥 문제 없으면 샘플 3문제 자동 추가
         if (quizList == null || quizList.isEmpty()) {
-
             quizList = new ArrayList<>();
-
             quizList.add(new ConceptPair(0, noteId, "클래스(Class)", "객체를 만들기 위한 설계도", 0));
             quizList.add(new ConceptPair(0, noteId, "객체(Object)", "클래스로부터 생성된 실체", 0));
             quizList.add(new ConceptPair(0, noteId, "상속(Inheritance)", "부모 클래스 기능을 자식이 물려받는 것", 0));
         }
 
-
         currentIndex = 0;
         loadQuestion(currentIndex);
     }
-
 
     private void loadQuestion(int index) {
         ConceptPair cp = quizList.get(index);
@@ -82,6 +77,20 @@ public class QuizController {
             Stage stage = (Stage) conceptLabel.getScene().getWindow();
             stage.setScene(new Scene(root));
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 🔥 FXML에서 onAction="#goBack" 때문에 반드시 필요
+    @FXML
+    private void goBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) conceptLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
