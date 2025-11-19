@@ -124,6 +124,9 @@ public class QuizController {
             QuizResultController controller = loader.getController();
             controller.showResult(quizList, userAnswers);
 
+            // 🔥 추가: 이전 화면 저장하기
+            controller.setPreviousScene(conceptLabel.getScene());
+
             Stage stage = (Stage) conceptLabel.getScene().getWindow();
             stage.setScene(new Scene(root));
 
@@ -131,6 +134,7 @@ public class QuizController {
             e.printStackTrace();
         }
     }
+
 
     public void setPreviousScene(Scene scene) {
         this.previousScene = scene;

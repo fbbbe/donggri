@@ -1,55 +1,130 @@
-// 시험 결과/채점 처리
-
 package dongggg;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.Parent;
-
-import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.util.List;
 
 public class QuizResultController {
 
-    @FXML private TableView<ResultRow> resultTable;
-    @FXML private TableColumn<ResultRow, String> conceptCol;
-    @FXML private TableColumn<ResultRow, String> correctCol;
-    @FXML private TableColumn<ResultRow, String> userCol;
+    // 점수 요약 영역
+    @FXML private Label scorePercentLabel;
+    @FXML private Label scoreSummaryLabel;
+    @FXML private ProgressBar scoreBar;
 
-    public void showResult(List<ConceptPair> quizList, List<String> answers) {
+    // 문제별 카드들이 추가될 박스
+    @FXML private VBox resultListBox;
 
-        for (int i = 0; i < quizList.size(); i++) {
+    private Scene previousScene;
+
+    /** 🔥 시험 결과 표시 */
+    public void showResult(List<ConceptPair> quizList, List<String> userAnswers) {
+
+        int total = quizList.size();
+        int correctCount = 0;
+
+        // 리스트 영역 초기화
+        resultListBox.getChildren().clear();
+
+        for (int i = 0; i < total; i++) {
             ConceptPair pair = quizList.get(i);
+            String correct = pair.getExplanation();
+            String user = userAnswers.get(i);
 
-            String userAns = answers.get(i);
-            String correctAns = pair.getExplanation();  // 🔥 변경됨
+            boolean isCorrect = user.equalsIgnoreCase(correct);
+            if (isCorrect) correctCount++;
 
-            resultTable.getItems().add(new ResultRow(
-                    pair.getTerm(),     // 🔥 변경됨
-                    correctAns,
-                    userAns
-            ));
+            // 🔥 문제별 UI카드를 동적으로 생성
+            resultListBox.getChildren().add(createResultCard(pair.getTerm(), correct, user, isCorrect));
         }
 
-        conceptCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().concept()));
-        correctCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().correct()));
-        userCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().user()));
+        // 🔥 점수 계산
+        int scorePercent = (int) Math.round((correctCount * 100.0) / total);
+
+        scorePercentLabel.setText(scorePercent + "%");
+        scoreSummaryLabel.setText(correctCount + " / " + total + "개 정답");
+        scoreBar.setProgress(scorePercent / 100.0);
     }
 
-    public record ResultRow(String concept, String correct, String user) {}
+    /** 🔥 React 디자인 카드 하나 생성 */
+    private VBox createResultCard(String concept, String correct, String user, boolean isCorrect) {
 
+        VBox card = new VBox(8);
+        card.setStyle(
+            "-fx-background-color: white;" +
+            "-fx-padding: 18;" +
+            "-fx-background-radius: 20;" +
+            "-fx-border-color: #ece3ff;" +
+            "-fx-border-radius: 20;" +
+            "-fx-border-width: 1;" +
+            "-fx-effect: dropshadow(gaussian, rgba(100,65,164,0.08), 16, 0.2, 0, 4);"
+        );
+
+        Label conceptLabel = new Label("개념: " + concept);
+        conceptLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #7c3aed;");
+
+        Label correctLabel = new Label("정답: " + correct);
+        correctLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #7c74a8;");
+
+        VBox userBox = new VBox();
+        userBox.setStyle(
+            "-fx-background-color: #f6f0ff;" +
+            "-fx-padding: 12;" +
+            "-fx-background-radius: 12;" +
+            "-fx-border-color: #e0d4ff;" +
+            "-fx-border-radius: 12;"
+        );
+        Label userTitle = new Label("당신의 답변");
+        userTitle.setStyle("-fx-font-size: 10px; -fx-text-fill: #7c74a8;");
+        Label userValue = new Label(user.isEmpty() ? "(답변 없음)" : user);
+        userValue.setStyle("-fx-font-size: 13px; -fx-text-fill: #2d1b4e;");
+        userBox.getChildren().addAll(userTitle, userValue);
+
+        // 정오표시
+        Label resultTag = new Label(isCorrect ? "✓ 정답" : "✗ 오답");
+        resultTag.setStyle(
+            isCorrect
+                ? "-fx-background-color: #e5d9ff; -fx-text-fill: #7c3aed; -fx-font-weight: 600; -fx-padding: 6 12; -fx-background-radius: 12;"
+                : "-fx-background-color: #ffe2e2; -fx-text-fill: #d32f2f; -fx-font-weight: 600; -fx-padding: 6 12; -fx-background-radius: 12;"
+        );
+
+        card.getChildren().addAll(conceptLabel, correctLabel, userBox, resultTag);
+        return card;
+    }
+
+    /** 🔥 이전 화면 저장 */
+    public void setPreviousScene(Scene scene) {
+        this.previousScene = scene;
+    }
+
+    /** 뒤로가기 버튼 */
     @FXML
-    public void goHome() {
+    private void goBack() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
-            Stage stage = (Stage) resultTable.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Stage stage = (Stage) resultListBox.getScene().getWindow();
+            if (previousScene != null) {
+                stage.setScene(previousScene);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e) {
+    }
+
+    /** 대시보드로 이동 */
+    @FXML
+    private void goDashboard() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
+            Stage stage = (Stage) resultListBox.getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
