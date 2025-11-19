@@ -58,39 +58,39 @@ public class QuizResultController {
         card.setStyle(
             "-fx-background-color: white;" +
             "-fx-padding: 18;" +
-            "-fx-background-radius: 20;" +
-            "-fx-border-color: #ece3ff;" +
-            "-fx-border-radius: 20;" +
-            "-fx-border-width: 1;" +
-            "-fx-effect: dropshadow(gaussian, rgba(100,65,164,0.08), 16, 0.2, 0, 4);"
+            "-fx-background-radius: 22;" +
+            "-fx-border-color: #e8dff5;" +
+            "-fx-border-radius: 22;" +
+            "-fx-border-width: 2;" +
+            "-fx-effect: dropshadow(gaussian, rgba(168,85,221,0.12), 18, 0.25, 0, 4);"
         );
 
         Label conceptLabel = new Label("개념: " + concept);
-        conceptLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #7c3aed;");
+        conceptLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #a855dd;");
 
         Label correctLabel = new Label("정답: " + correct);
-        correctLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #7c74a8;");
+        correctLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #d9b5ff;");
 
         VBox userBox = new VBox();
         userBox.setStyle(
-            "-fx-background-color: #f6f0ff;" +
+            "-fx-background-color: #f5f0fb;" +
             "-fx-padding: 12;" +
             "-fx-background-radius: 12;" +
-            "-fx-border-color: #e0d4ff;" +
+            "-fx-border-color: #e8dff5;" +
             "-fx-border-radius: 12;"
         );
         Label userTitle = new Label("당신의 답변");
-        userTitle.setStyle("-fx-font-size: 10px; -fx-text-fill: #7c74a8;");
+        userTitle.setStyle("-fx-font-size: 10px; -fx-text-fill: #d9b5ff;");
         Label userValue = new Label(user.isEmpty() ? "(답변 없음)" : user);
-        userValue.setStyle("-fx-font-size: 13px; -fx-text-fill: #2d1b4e;");
+        userValue.setStyle("-fx-font-size: 13px; -fx-text-fill: #3b275b;");
         userBox.getChildren().addAll(userTitle, userValue);
 
         // 정오표시
         Label resultTag = new Label(isCorrect ? "✓ 정답" : "✗ 오답");
         resultTag.setStyle(
             isCorrect
-                ? "-fx-background-color: #e5d9ff; -fx-text-fill: #7c3aed; -fx-font-weight: 600; -fx-padding: 6 12; -fx-background-radius: 12;"
-                : "-fx-background-color: #ffe2e2; -fx-text-fill: #d32f2f; -fx-font-weight: 600; -fx-padding: 6 12; -fx-background-radius: 12;"
+                ? "-fx-background-color: #f5f0fb; -fx-text-fill: #a855dd; -fx-font-weight: 600; -fx-padding: 6 12; -fx-background-radius: 12;"
+                : "-fx-background-color: #fee2e2; -fx-text-fill: #dc2626; -fx-font-weight: 600; -fx-padding: 6 12; -fx-background-radius: 12;"
         );
 
         card.getChildren().addAll(conceptLabel, correctLabel, userBox, resultTag);

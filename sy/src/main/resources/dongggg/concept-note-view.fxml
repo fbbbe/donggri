@@ -98,14 +98,10 @@
                 <Label fx:id="statusLabel" styleClass="note-date" HBox.hgrow="ALWAYS"/>
 
                 <Button text="닫기" onAction="#onCancel"
-                        styleClass="note-type-choice"/>
+                        styleClass="pill-button pill-button-outline"/>
 
                 <Button text="저장" onAction="#onSaveAll"
-                        style="-fx-background-color: linear-gradient(#7c3aed, #6d28d9);
-                               -fx-text-fill: white;
-                               -fx-background-radius: 999;
-                               -fx-padding: 6 18;
-                               -fx-cursor: hand;"/>
+                        styleClass="pill-button pill-button-primary"/>
             </children>
         </HBox>
     </bottom>

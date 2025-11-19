@@ -9,47 +9,49 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="dongggg.QuizResultController"
       spacing="20"
-      style="-fx-background-color: linear-gradient(to bottom right, #faf8ff, #f3eeff); -fx-padding: 24;">
+      style="-fx-background-color: linear-gradient(to bottom right, #f8f7ff, #f5ecff); -fx-padding: 24;">
 
     <HBox spacing="10">
         <Label text="채점"
-               style="-fx-font-size: 32px; -fx-font-weight: 700; -fx-text-fill: #2d1b4e;" />
+               style="-fx-font-size: 32px; -fx-font-weight: 700; -fx-text-fill: #a855dd;" />
         <Pane HBox.hgrow="ALWAYS"/>
         <Button text="←"
                 onAction="#goBack"
                 style="-fx-background-color: white;
-                       -fx-border-color: #e6dcff;
+                       -fx-border-color: #e8dff5;
                        -fx-border-radius: 12;
                        -fx-background-radius: 12;
+                       -fx-text-fill: #a855dd;
                        -fx-padding: 8 12;" />
     </HBox>
 
     <Label text="정답과 비교하여 채점하세요"
-           style="-fx-text-fill: #7c74a8; -fx-font-size: 14px;" />
+           style="-fx-text-fill: #d9b5ff; -fx-font-size: 14px;" />
 
     <VBox spacing="10"
           style="-fx-background-color: white;
                  -fx-background-radius: 24;
-                 -fx-border-color: #ede1ff;
+                 -fx-border-color: #e8dff5;
                  -fx-border-radius: 24;
+                 -fx-border-width: 2;
                  -fx-padding: 28 32;
-                 -fx-effect: dropshadow(gaussian, rgba(100,65,164,0.12), 22, 0.2, 0, 6);">
+                 -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.15), 22, 0.2, 0, 6);">
 
         <Label text="최종 점수"
-               style="-fx-text-fill: #8a7ac7; -fx-font-size: 14px;" />
+               style="-fx-text-fill: #d9b5ff; -fx-font-size: 14px;" />
 
         <Label fx:id="scorePercentLabel"
                text="0%"
-               style="-fx-font-size: 48px; -fx-font-weight: 700; -fx-text-fill: #7c3aed;" />
+               style="-fx-font-size: 48px; -fx-font-weight: 700; -fx-text-fill: #a855dd;" />
 
         <Label fx:id="scoreSummaryLabel"
                text="0 / 5개 정답"
-               style="-fx-font-size: 16px; -fx-text-fill: #4b3b86; -fx-font-weight: 500;" />
+               style="-fx-font-size: 16px; -fx-text-fill: #3b275b; -fx-font-weight: 500;" />
 
         <ProgressBar fx:id="scoreBar"
                      prefHeight="12"
                      prefWidth="280"
-                     style="-fx-accent: #7c3aed; -fx-background-color: #ede7ff;" />
+                     style="-fx-accent: #a855dd; -fx-background-color: #f5f0fb;" />
     </VBox>
 
     <ScrollPane fitToWidth="true"
@@ -64,8 +66,8 @@
         <Button text="대시보드로"
                 onAction="#goDashboard"
                 style="-fx-background-color: white;
-                       -fx-text-fill: #6d28d9;
-                       -fx-border-color: #e6dcff;
+                       -fx-text-fill: #a855dd;
+                       -fx-border-color: #e8dff5;
                        -fx-border-radius: 16;
                        -fx-background-radius: 16;
                        -fx-font-size: 15px;
@@ -75,7 +77,7 @@
         <Button text="완료"
                 onAction="#goDashboard"
                 HBox.hgrow="ALWAYS"
-                style="-fx-background-color: linear-gradient(#7c3aed, #6d28d9);
+                style="-fx-background-color: linear-gradient(#a855dd, #9333cc);
                        -fx-text-fill: white;
                        -fx-font-size: 15px;
                        -fx-font-weight: 600;

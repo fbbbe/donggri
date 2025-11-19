@@ -26,23 +26,58 @@
                     </children>
                 </VBox>
 
-                <HBox spacing="16" alignment="CENTER">
+                <VBox spacing="16" alignment="CENTER">
                     <children>
                         <Button fx:id="normalButton"
-                            text="✏️ 일반 노트"
-                            onAction="#onNormalNote"
-                            styleClass="note-type-choice"/>
+                                onAction="#onNormalNote"
+                                maxWidth="480"
+                                prefWidth="420"
+                                prefHeight="120"
+                                contentDisplay="GRAPHIC_ONLY"
+                                styleClass="note-type-choice general-choice">
+                            <graphic>
+                                <HBox spacing="16" alignment="CENTER_LEFT">
+                                    <StackPane prefWidth="64" prefHeight="64"
+                                               styleClass="note-type-icon general-icon">
+                                        <Label text="✏️" style="-fx-font-size: 28px; -fx-text-fill: white;"/>
+                                    </StackPane>
+                                    <VBox spacing="4" alignment="CENTER_LEFT">
+                                        <Label text="일반 노트" styleClass="note-type-choice-title"/>
+                                        <Label text="자유롭게 노트를 작성해요" styleClass="note-type-choice-subtitle"/>
+                                    </VBox>
+                                </HBox>
+                            </graphic>
+                        </Button>
 
                         <Button fx:id="conceptButton"
-                            text="📚 개념 노트"
-                            onAction="#onConceptNote"
-                            styleClass="note-type-choice"/>
+                                onAction="#onConceptNote"
+                                maxWidth="480"
+                                prefWidth="420"
+                                prefHeight="120"
+                                contentDisplay="GRAPHIC_ONLY"
+                                styleClass="note-type-choice concept-choice">
+                            <graphic>
+                                <HBox spacing="16" alignment="CENTER_LEFT">
+                                    <StackPane prefWidth="64" prefHeight="64"
+                                               styleClass="note-type-icon concept-icon">
+                                        <Label text="📚" style="-fx-font-size: 28px; -fx-text-fill: white;"/>
+                                    </StackPane>
+                                    <VBox spacing="4" alignment="CENTER_LEFT">
+                                        <Label text="개념 노트" styleClass="note-type-choice-title"/>
+                                        <Label text="체계적으로 개념을 정리해요" styleClass="note-type-choice-subtitle"/>
+                                    </VBox>
+                                </HBox>
+                            </graphic>
+                        </Button>
                     </children>
-                </HBox>
+                </VBox>
 
-                <Button text="← 뒤로 가기"
+                <Button text="← 되돌아가기"
+                        maxWidth="480"
+                        prefWidth="420"
+                        prefHeight="60"
                         onAction="#onBack"
-                        styleClass="note-type-choice"/>
+                        styleClass="button-outlined"/>
             </children>
         </VBox>
     </center>

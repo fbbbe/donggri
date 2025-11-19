@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -104,12 +103,12 @@ public class MainController {
 
         installHoverAnimation(
                 card,
-                Color.web("#ffffff", 0.92),
-                Color.web("#f4ebff"),
-                Color.web("#e2d5ff"),
-                Color.web("#c0a9ff"),
-                4, 14,
-                0.02, 0.14
+                Color.web("#ffffff", 0.98),
+                Color.web("#f5f0fb"),
+                Color.web("#e8dff5"),
+                Color.web("#a855dd"),
+                6, 18,
+                0.05, 0.22
         );
 
         return card;
@@ -124,12 +123,12 @@ public class MainController {
                 .map(node -> (Region) node)
                 .forEach(region -> installHoverAnimation(
                         region,
-                        Color.web("#fefbff"),
-                        Color.web("#f1e5ff"),
-                        Color.web("#e7cffc"),
-                        Color.web("#c498ff"),
+                        Color.web("#ffffff"),
+                        Color.web("#fff9e6"),
+                        Color.web("#e8dff5"),
+                        Color.web("#ffb547"),
                         6, 18,
-                        0.02, 0.16
+                        0.05, 0.2
                 ));
     }
 
@@ -138,9 +137,9 @@ public class MainController {
         App.showNoteTypeSelect();
     }
 
-    // 🔥🔥 동그리 클릭 시 대시보드 이동
+    // 🔥🔥 동그리 클릭 또는 단축 버튼 클릭 시 대시보드 이동
     @FXML
-    private void onClickDonggriIcon(MouseEvent e) {
+    private void onOpenMascot() {
         App.showDashboardView();
     }
 
@@ -163,7 +162,7 @@ public class MainController {
         DropShadow shadow = new DropShadow();
         shadow.setOffsetY(2);
         shadow.setRadius(baseShadowRadius);
-        shadow.setColor(Color.rgb(124, 58, 237, baseShadowOpacity));
+        shadow.setColor(Color.rgb(168, 85, 221, baseShadowOpacity));
         region.setEffect(shadow);
 
         region.setStyle(baseStyle
@@ -183,7 +182,7 @@ public class MainController {
             double opacity = baseShadowOpacity + (hoverShadowOpacity - baseShadowOpacity) * t;
 
             shadow.setRadius(radius);
-            shadow.setColor(Color.rgb(124, 58, 237, opacity));
+            shadow.setColor(Color.rgb(168, 85, 221, opacity));
         });
 
         Timeline hoverTimeline = new Timeline(

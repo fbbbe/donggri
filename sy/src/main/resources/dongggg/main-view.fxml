@@ -8,8 +8,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="dongggg.MainController"
-            styleClass="root-pane main-root"
-            style="-fx-background-color: #fdf4ff;">
+            styleClass="root-pane main-root">
 
     <top>
         <VBox spacing="18" styleClass="main-header">
@@ -18,10 +17,10 @@
             </padding>
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="16" styleClass="profile-header"
-                      onMouseClicked="#onClickDonggriIcon">
+                      onMouseClicked="#onOpenMascot">
                     <StackPane prefWidth="60" prefHeight="60"
                                styleClass="avatar-circle main-avatar"
-                               onMouseClicked="#onClickDonggriIcon">
+                               onMouseClicked="#onOpenMascot">
                         <children>
                             <Label text="🐤">
                                 <style>
@@ -49,11 +48,16 @@
                                    styleClass="search-field"/>
                     </HBox>
 
-                    <Button fx:id="newNoteButton"
-                            text="+"
-                            onAction="#onNewNote"
-                            prefWidth="44" prefHeight="44"
+                    <Button text="✨"
+                            onAction="#onOpenMascot"
+                            prefWidth="48" prefHeight="48"
                             styleClass="primary-icon-button"/>
+
+                    <Button fx:id="newNoteButton"
+                            text="＋"
+                            onAction="#onNewNote"
+                            prefWidth="48" prefHeight="48"
+                            styleClass="accent-icon-button"/>
                 </HBox>
             </children>
         </VBox>

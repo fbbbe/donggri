@@ -8,8 +8,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="dongggg.DashboardController"
-            styleClass="root-pane dashboard-root"
-            style="-fx-background-color: #fdf4ff;">
+            styleClass="root-pane dashboard-root">
 
     <center>
         <ScrollPane fitToWidth="true"

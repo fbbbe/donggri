@@ -43,17 +43,17 @@
                         <Button text="삭제"
                                 fx:id="deleteButton"
                                 onAction="#onDelete"
-                                style="-fx-background-color: #fee2e2; -fx-text-fill: #b91c1c; -fx-background-radius: 999; -fx-padding: 6 14;"/>
+                                styleClass="pill-button pill-button-danger"/>
 
                         <Pane HBox.hgrow="ALWAYS"/>
 
                         <Button text="취소"
                                 onAction="#onCancel"
-                                style="-fx-background-color: transparent; -fx-text-fill: #6d28d9; -fx-border-color: #e9d5ff; -fx-border-radius: 999; -fx-background-radius: 999; -fx-padding: 6 14;"/>
+                                styleClass="pill-button pill-button-outline"/>
 
                         <Button text="저장"
                                 onAction="#onSave"
-                                style="-fx-background-color: linear-gradient(#7c3aed, #6d28d9); -fx-text-fill: white; -fx-background-radius: 999; -fx-padding: 6 18;"/>
+                                styleClass="pill-button pill-button-primary"/>
                     </children>
                 </HBox>
 

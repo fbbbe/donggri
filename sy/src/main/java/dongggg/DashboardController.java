@@ -28,24 +28,24 @@ public class DashboardController {
     private void initialize() {
         installHoverAnimation(
                 noteManageButton,
-                Color.web("#7c3aed"), Color.web("#6d28d9"),
-                Color.web("#8b5cf6"), Color.web("#7c3aed"),
+                Color.web("#a855dd"), Color.web("#9333cc"),
+                Color.web("#b46af0"), Color.web("#a855dd"),
                 Color.TRANSPARENT,
-                Color.web("#4c1dc5", 0.6)
+                Color.TRANSPARENT
         );
         installHoverAnimation(
                 newNoteButton,
-                Color.web("#ffffff", 0.9), Color.web("#ffffff", 0.9),
-                Color.web("#e9d5ff", 0.6), Color.web("#e9d5ff", 0.6),
-                Color.web("#e6dcff"),
-                Color.web("#c0a6ff")
+                Color.web("#ffe999"), Color.web("#ffd966"),
+                Color.web("#ffd966"), Color.web("#ffc640"),
+                Color.TRANSPARENT,
+                Color.TRANSPARENT
         );
         installHoverAnimation(
                 quizButton,
-                Color.web("#ffffff", 0.7), Color.web("#ffffff", 0.7),
-                Color.web("#d3c4ff", 0.5), Color.web("#d3c4ff", 0.5),
-                Color.web("#9276f9", 0.3),
-                Color.web("#855aff", 0.7)
+                Color.web("#ffffff"), Color.web("#ffffff"),
+                Color.web("#f5f0fb"), Color.web("#ffffff"),
+                Color.web("#e8dff5"),
+                Color.web("#a855dd")
         );
     }
 
