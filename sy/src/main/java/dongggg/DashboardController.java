@@ -10,17 +10,16 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class DashboardController {
 
-    @FXML
-    private Button noteManageButton;
-
-    @FXML
-    private Button newNoteButton;
-
-    @FXML
-    private Button quizButton;
+    @FXML private Button noteManageButton;
+    @FXML private Button newNoteButton;
+    @FXML private Button quizButton;
 
     private static final Duration HOVER_DURATION = Duration.millis(220);
 
@@ -49,29 +48,50 @@ public class DashboardController {
         );
     }
 
+    /** 🔥 노트 관리 화면 이동 — Scene 방식 */
     @FXML
     private void goNoteManager() {
-        App.showMainView();
+        switchScene("main-view.fxml");
     }
 
+    /** 🔥 새 노트 작성 화면 이동 — Scene 방식 */
     @FXML
     private void goConceptNote() {
-        App.showNoteTypeSelect();
+        switchScene("note-type-select-view.fxml");
     }
 
-    // 🔥 시험 보기 버튼 → 시험 시작 화면으로 이동
+    /** 🔥 시험 시작 화면 이동 — Scene 방식 */
     @FXML
     private void goQuiz() {
-        App.showQuizStartView();
+        switchScene("quiz-start-view.fxml");
     }
+
+
+    /** 중앙 공용: Scene 교체 함수 */
+    private void switchScene(String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) noteManageButton.getScene().getWindow();
+            Scene scene = new Scene(root, 1200, 720);
+
+            scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+            stage.setScene(scene);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ===== 아래는 hover animation 그대로 유지 =====
 
     private void installHoverAnimation(Button button,
                                        Color baseBgStart, Color baseBgEnd,
                                        Color hoverBgStart, Color hoverBgEnd,
                                        Color baseBorder, Color hoverBorder) {
-        if (button == null) {
-            return;
-        }
+        if (button == null) return;
+
         final String baseStyle = button.getStyle() == null ? "" : button.getStyle();
         DoubleProperty progress = new SimpleDoubleProperty(0);
 
@@ -81,12 +101,12 @@ public class DashboardController {
             Color bg2 = baseBgEnd.interpolate(hoverBgEnd, t);
             Color border = baseBorder.interpolate(hoverBorder, t);
             String background = toLinearGradient(bg1, bg2);
+
             button.setStyle(baseStyle
                     + "-fx-background-color: " + background + ";"
                     + "-fx-border-color: " + toCss(border) + ";");
         });
 
-        // 초기 상태 적용
         button.setStyle(baseStyle
                 + "-fx-background-color: " + toLinearGradient(baseBgStart, baseBgEnd) + ";"
                 + "-fx-border-color: " + toCss(baseBorder) + ";");
@@ -108,17 +128,17 @@ public class DashboardController {
     }
 
     private String toLinearGradient(Color start, Color end) {
-        if (start.equals(end)) {
-            return toCss(start);
-        }
+        if (start.equals(end)) return toCss(start);
         return "linear-gradient(" + toCss(start) + ", " + toCss(end) + ")";
     }
 
     private String toCss(Color color) {
-        int r = (int) Math.round(color.getRed() * 255);
-        int g = (int) Math.round(color.getGreen() * 255);
-        int b = (int) Math.round(color.getBlue() * 255);
-        double opacity = Math.round(color.getOpacity() * 1000) / 1000.0;
-        return String.format("rgba(%d,%d,%d,%.3f)", r, g, b, opacity);
+        return String.format(
+                "rgba(%d,%d,%d,%.3f)",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255),
+                color.getOpacity()
+        );
     }
 }

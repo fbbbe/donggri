@@ -60,21 +60,30 @@ public class QuizStartController {
     // 뒤로 가기
     @FXML
     private void goDashboard() {
+        System.out.println("[QuizStart] goDashboard called!");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
             Parent root = loader.load();
 
-            Scene scene = new Scene(root, 1200, 720);
-            scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+            Scene dashboardScene = new Scene(root, 1200, 720);
+            dashboardScene.getStylesheets().add(
+                    getClass().getResource("styles.css").toExternalForm()
+            );
 
-            // 🔥 NOTE: resultListBox 절대 쓰면 안 됨!
+            // ❗ noteListBox 로부터 Stage 가져오기
             Stage stage = (Stage) noteListBox.getScene().getWindow();
-            stage.setScene(scene);
+
+            stage.setScene(dashboardScene);
+            stage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+    
 
     @FXML
     private void goBack() {

@@ -118,22 +118,31 @@ public class QuizResultController {
     /** 대시보드로 이동 */
     @FXML
     private void goDashboard() {
+        System.out.println("[QuizResult] goDashboard called!");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
             Parent root = loader.load();
 
+            Scene dashboardScene = new Scene(root, 1200, 720);
+            dashboardScene.getStylesheets().add(
+                    getClass().getResource("styles.css").toExternalForm()
+            );
+
+            // ❗ resultListBox 로부터 Stage 가져오기
             Stage stage = (Stage) resultListBox.getScene().getWindow();
 
-            Scene scene = new Scene(root, 1200, 720);
-            scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-
-            stage.setScene(scene);
-            stage.sizeToScene(); // 화면 재조정
+            stage.setScene(dashboardScene);
+            stage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+
+
 
 
 }
