@@ -91,17 +91,30 @@ public class App extends Application {
     // 🔥🔥 여기! 대시보드 전환 기능
     public static void showDashboardView() {
         try {
+            System.out.println("🔥 App.showDashboardView() called");
+
             FXMLLoader loader = new FXMLLoader(App.class.getResource("dashboard-view.fxml"));
-            Parent root = loader.load();
-            scene.setRoot(root);
+            Parent newRoot = loader.load();
 
-            // ⭐ CSS 강제 재적용
-            reloadStylesheet();
+            if (scene == null) {
+                System.out.println("❌ Scene is NULL!");
+                return;
+            }
 
-        } catch (IOException e) {
+            // ⭐ 현재 root를 완전히 교체 (문제되는 setRoot 중복 버그 제거)
+            scene.setRoot(newRoot);
+
+            // ⭐ CSS 재적용
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(MAIN_STYLESHEET);
+
+            System.out.println("🔥 Dashboard root set successfully!");
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 
     // 🔥 시험 시작 화면 전환 기능
