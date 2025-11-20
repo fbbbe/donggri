@@ -46,9 +46,9 @@
                               styleClass="dashboard-hero-card">
                             <VBox spacing="10">
                                 <Label text="마스코트 레벨" styleClass="dashboard-section-label"/>
-                                <Label text="Lv. 5" styleClass="dashboard-level-value"/>
-                                <Label text="다음 레벨까지 234 XP" styleClass="dashboard-section-helper"/>
-                                <ProgressBar progress="0.6"
+                                <Label fx:id="levelValueLabel" text="Lv. --" styleClass="dashboard-level-value"/>
+                                <Label fx:id="levelHelperLabel" text="레벨 정보를 불러오는 중..." styleClass="dashboard-section-helper"/>
+                                <ProgressBar fx:id="levelProgressBar" progress="0.0"
                                              prefWidth="260"
                                              styleClass="dashboard-progress"/>
                             </VBox>
@@ -177,7 +177,7 @@
                                 <graphic>
                                     <SVGPath
                                             content="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4 M2 6h4 M2 10h4 M2 14h4 M2 18h4 M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"
-                                            stroke="white"
+                                            stroke="#A855DD"
                                             fill="transparent"
                                             strokeWidth="2"
                                             strokeLineCap="ROUND"

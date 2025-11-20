@@ -10,7 +10,14 @@ public class ConceptPairRepository {
         List<ConceptPair> list = new ArrayList<>();
 
         String sql = """
-                SELECT id, note_id, term, explanation, sort_order
+                SELECT id,
+                       note_id,
+                       term,
+                       explanation,
+                       sort_order,
+                       total_attempts,
+                       correct_count,
+                       wrong_rate
                 FROM concept_pairs
                 WHERE note_id = ?
                 ORDER BY sort_order ASC, id ASC
@@ -28,7 +35,10 @@ public class ConceptPairRepository {
                             rs.getInt("note_id"),
                             rs.getString("term"),
                             rs.getString("explanation"),
-                            rs.getInt("sort_order"));
+                            rs.getInt("sort_order"),
+                            rs.getInt("total_attempts"),
+                            rs.getInt("correct_count"),
+                            rs.getDouble("wrong_rate"));
                     list.add(pair);
                 }
             }

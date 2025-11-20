@@ -6,6 +6,8 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.beans.property.DoubleProperty;
@@ -20,6 +22,9 @@ public class DashboardController {
     @FXML private Button noteManageButton;
     @FXML private Button newNoteButton;
     @FXML private Button quizButton;
+    @FXML private Label levelValueLabel;
+    @FXML private Label levelHelperLabel;
+    @FXML private ProgressBar levelProgressBar;
 
     private static final Duration HOVER_DURATION = Duration.millis(220);
 
@@ -46,6 +51,8 @@ public class DashboardController {
                 Color.web("#e8dff5"),
                 Color.web("#a855dd")
         );
+
+        updateLevelCard();
     }
 
     /** 🔥 노트 관리 화면 이동 — Scene 방식 */
@@ -81,6 +88,28 @@ public class DashboardController {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void updateLevelCard() {
+        DonggriLevelInfo info = DonggriRepository.getLevelInfo();
+
+        if (levelValueLabel != null) {
+            levelValueLabel.setText("Lv. " + info.getCurrentLevel());
+        }
+
+        if (levelHelperLabel != null) {
+            if (info.isMaxLevel()) {
+                levelHelperLabel.setText("최고 레벨입니다!");
+            } else {
+                levelHelperLabel.setText(String.format("다음 레벨까지 %d점 / %d문제",
+                        info.getRemainingScore(),
+                        info.getRemainingCorrect()));
+            }
+        }
+
+        if (levelProgressBar != null) {
+            levelProgressBar.setProgress(info.getProgressRatio());
         }
     }
 
