@@ -460,6 +460,149 @@
     -fx-font-weight: 700;
 }
 
+/* 시험 모드 선택 */
+.quiz-mode-card {
+    -fx-background-color: white;
+    -fx-background-radius: 28;
+    -fx-border-radius: 28;
+    -fx-border-color: #E8DFF5;
+    -fx-border-width: 2.5;
+    -fx-padding: 26 28 30 28;
+    -fx-effect: dropshadow(gaussian, rgba(132, 107, 192, 0.18), 24, 0.32, 0, 8);
+}
+
+.quiz-mode-card.purple {
+    -fx-border-color: #E7DBFA;
+}
+
+.quiz-mode-card.yellow {
+    -fx-border-color: #FFE5A0;
+}
+
+.quiz-mode-emoji {
+    -fx-font-size: 36px;
+}
+
+.quiz-mode-icon-purple,
+.quiz-mode-icon-yellow {
+    -fx-padding: 14;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 16, 0.24, 0, 3);
+}
+
+.quiz-mode-icon-purple {
+    -fx-background-color: linear-gradient(#c084fc, #a855dd);
+}
+
+.quiz-mode-icon-yellow {
+    -fx-background-color: linear-gradient(#ffe297, #fbbf24);
+}
+
+.quiz-mode-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #A855DD;
+}
+
+.quiz-mode-card.yellow .quiz-mode-title {
+    -fx-text-fill: #d97706;
+}
+
+.quiz-mode-subtitle {
+    -fx-text-fill: #C4B5D8;
+    -fx-font-size: 13px;
+}
+
+.quiz-mode-info {
+    -fx-background-color: #f3eaff;
+    -fx-background-radius: 18;
+    -fx-padding: 14 16;
+}
+
+.quiz-mode-card.yellow .quiz-mode-info {
+    -fx-background-color: #fff4d4;
+}
+
+.quiz-mode-info-label {
+    -fx-text-fill: #A855DD;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+.quiz-mode-info-value {
+    -fx-text-fill: #7C3AED;
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+}
+
+.quiz-mode-card.yellow .quiz-mode-info-label {
+    -fx-text-fill: #D97706;
+}
+
+.quiz-mode-card.yellow .quiz-mode-info-value {
+    -fx-text-fill: #D97706;
+}
+
+.quiz-mode-start {
+    -fx-pref-width: 100%;
+    -fx-padding: 14;
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.quiz-mode-start.purple {
+    -fx-background-color: linear-gradient(#b46af0, #a855dd);
+    -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.30), 20, 0.35, 0, 4);
+}
+
+.quiz-mode-start.yellow {
+    -fx-background-color: linear-gradient(#ffd966, #fbbf24);
+    -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.26), 20, 0.36, 0, 4);
+}
+
+.quiz-mode-slider {
+    -fx-padding: 4 0 0 0;
+}
+
+.quiz-mode-slider .track {
+    -fx-background-color: linear-gradient(#ffe8a3, #ffd966);
+    -fx-background-radius: 10;
+    -fx-pref-height: 10;
+}
+
+.quiz-mode-slider .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-border-color: #d97706;
+    -fx-border-width: 2;
+    -fx-pref-width: 18;
+    -fx-pref-height: 18;
+}
+
+.quiz-pill-outline {
+    -fx-background-color: #fff7df;
+    -fx-border-color: transparent;
+    -fx-text-fill: #c18b00;
+    -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.14), 12, 0.3, 0, 2);
+    -fx-background-insets: 0;
+}
+
+.quiz-pill-outline:hover {
+    -fx-background-color: #ffefc1;
+}
+
+.quiz-pill-primary {
+    -fx-background-color: linear-gradient(#ffd966, #fbbf24);
+    -fx-border-color: transparent;
+    -fx-text-fill: #8a5800;
+    -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.24), 14, 0.35, 0, 3);
+}
+
 .note-check:selected > .box > .mark {
     -fx-background-color: white;
 }
@@ -1188,4 +1331,3 @@
     -fx-font-size: 12px;
     -fx-text-fill: #C4B5D8;
 }
-

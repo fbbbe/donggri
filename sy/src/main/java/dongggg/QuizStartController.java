@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import dongggg.QuizModeSelectController;
 
 public class QuizStartController {
 
@@ -87,12 +88,11 @@ public class QuizStartController {
         if (selectedNotes.isEmpty()) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz-mode-select-view.fxml"));
             Parent root = loader.load();
 
-            QuizController controller = loader.getController();
-            controller.initQuiz(selectedNotes);
-            controller.setPreviousScene(startButton.getScene());
+            QuizModeSelectController controller = loader.getController();
+            controller.setSelectedNotes(selectedNotes);
 
             Stage stage = App.getStage();
             stage.setScene(new Scene(root, 1200, 720));

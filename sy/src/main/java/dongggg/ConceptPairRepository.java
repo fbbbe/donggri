@@ -51,6 +51,29 @@ public class ConceptPairRepository {
         return list;
     }
 
+    public static int countByNoteIds(List<Integer> noteIds) {
+        if (noteIds == null || noteIds.isEmpty()) return 0;
+        String placeholders = String.join(",", noteIds.stream().map(id -> "?").toList());
+        String sql = "SELECT COUNT(*) FROM concept_pairs WHERE note_id IN (%s)".formatted(placeholders);
+
+        try (Connection conn = Database.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            int idx = 1;
+            for (Integer id : noteIds) {
+                pstmt.setInt(idx++, id);
+            }
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("[DB] 문제 수 집계 중 오류 발생");
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     // note_id에 해당하는 기존 페어들을 모두 삭제 후 새로 저장
     public static void replaceAllForNote(int noteId, List<ConceptPair> pairs) {
         String deleteSql = "DELETE FROM concept_pairs WHERE note_id = ?";
@@ -121,5 +144,55 @@ public class ConceptPairRepository {
             System.out.println("[DB] 시험 결과 업데이트 중 오류 발생");
             e.printStackTrace();
         }
+    }
+
+    public static List<ConceptPair> findWorstByNoteIds(List<Integer> noteIds, int limit) {
+        List<ConceptPair> list = new ArrayList<>();
+        if (noteIds == null || noteIds.isEmpty()) return list;
+
+        String placeholders = String.join(",", noteIds.stream().map(id -> "?").toList());
+        String sql = """
+                SELECT id,
+                       note_id,
+                       term,
+                       explanation,
+                       sort_order,
+                       total_attempts,
+                       correct_count,
+                       wrong_rate
+                FROM concept_pairs
+                WHERE note_id IN (%s)
+                ORDER BY wrong_rate DESC, total_attempts DESC, id DESC
+                LIMIT ?
+                """.formatted(placeholders);
+
+        try (Connection conn = Database.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            int idx = 1;
+            for (Integer id : noteIds) {
+                pstmt.setInt(idx++, id);
+            }
+            pstmt.setInt(idx, limit <= 0 ? 10 : limit);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new ConceptPair(
+                            rs.getInt("id"),
+                            rs.getInt("note_id"),
+                            rs.getString("term"),
+                            rs.getString("explanation"),
+                            rs.getInt("sort_order"),
+                            rs.getInt("total_attempts"),
+                            rs.getInt("correct_count"),
+                            rs.getDouble("wrong_rate")));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("[DB] 오답률 상위 문제 조회 중 오류 발생");
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }
