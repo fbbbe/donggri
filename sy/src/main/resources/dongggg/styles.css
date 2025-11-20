@@ -97,7 +97,6 @@
 }
 
 .button-primary:hover {
-    -fx-background-color: linear-gradient(#FFD966, #FFC640);
 }
 
 .button-primary:disabled {
@@ -212,7 +211,7 @@
 }
 
 .accent-icon-button {
-    -fx-background-color: linear-gradient(#FFE999, #FFD966);
+    -fx-background-color: #FFE999;
     -fx-text-fill: white;
     -fx-background-radius: 16;
     -fx-border-radius: 16;
@@ -406,6 +405,12 @@
 
 .note-type-icon.concept-icon {
     -fx-background-color: #FFE999;
+}
+
+.folder-icon-wrapper {
+    -fx-background-color: #FFF7DF; /* 폴더 아이콘 뒤 연노랑 박스 */
+    -fx-background-radius: 20;
+    -fx-padding: 14;
 }
 
 /* ---------------------------------
