@@ -4,6 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Pos?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.StackPane?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -41,7 +44,12 @@
                 <HBox alignment="CENTER_LEFT" spacing="12">
                     <HBox spacing="10" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS"
                           styleClass="search-container, main-search">
-                        <Label text="🔍" styleClass="search-icon"/>
+                        <SVGPath
+                            content="M19 11a8 8 0 1 1 -16 0a8 8 0 1 1 16 0z M21 21L16.66 16.66"      
+                            stroke="#A855DD"
+                            fill="transparent"
+                            strokeWidth="1.8"
+                            style="-fx-scale-x: 0.85 ; -fx-scale-y: 0.85;" />
                         <TextField fx:id="searchField"
                                    promptText="노트 검색 또는 폴더명 검색..."
                                    HBox.hgrow="ALWAYS"
@@ -49,10 +57,22 @@
                     </HBox>
 
                     <Button fx:id="newNoteButton"
-                            text="＋"
                             onAction="#onNewNote"
                             prefWidth="48" prefHeight="48"
-                            styleClass="accent-icon-button"/>
+                            styleClass="accent-icon-button">
+                        <graphic>
+                            <StackPane prefWidth="20" prefHeight="20" alignment="CENTER">
+                                <!-- + 아이콘 -->
+                                <SVGPath
+                                    content="M5 12h14 M12 5v14"
+                                    stroke="#FFFFFF"
+                                    fill="transparent"
+                                    strokeWidth="2"
+                                    strokeLineCap="ROUND"
+                                    style="-fx-scale-x:0.9; -fx-scale-y:0.9;"/>
+                            </StackPane>
+                        </graphic>
+                    </Button>
                 </HBox>
             </children>
         </VBox>
@@ -75,7 +95,12 @@
                                 <VBox spacing="12">
                                     <children>
                                         <HBox spacing="8" alignment="CENTER_LEFT">
-                                            <Label text="📁" styleClass="section-icon"/>
+                                            <SVGPath
+                                                content="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"      
+                                                stroke="#A855DD"
+                                                fill="transparent"
+                                                strokeWidth="1.8"
+                                                style="-fx-scale-x: 0.85 ; -fx-scale-y: 0.85;" />
                                             <Label text="폴더" styleClass="section-heading"/>
                                         </HBox>
                                         <FlowPane fx:id="folderFlow"
@@ -84,7 +109,14 @@
                                             <children>
                                                 <HBox alignment="CENTER_LEFT" spacing="12"
                                                       styleClass="folder-card">
-                                                    <Label text="📁" styleClass="folder-card-icon"/>
+                                                    <StackPane styleClass="folder-icon-wrapper">
+                                                        <SVGPath
+                                                            content="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
+                                                            stroke="#F4B400"
+                                                            fill="transparent"
+                                                            strokeWidth="1.8"
+                                                            style="-fx-scale-x:0.85; -fx-scale-y:0.85;" />
+                                                    </StackPane>
                                                     <VBox spacing="4">
                                                         <Label text="영어+" styleClass="folder-card-title"/>
                                                         <Label text="12개" styleClass="folder-card-count"/>
@@ -93,7 +125,14 @@
 
                                                 <HBox alignment="CENTER_LEFT" spacing="12"
                                                       styleClass="folder-card">
-                                                    <Label text="📁" styleClass="folder-card-icon"/>
+                                                    <StackPane styleClass="folder-icon-wrapper">
+                                                        <SVGPath
+                                                            content="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
+                                                            stroke="#F4B400"
+                                                            fill="transparent"
+                                                            strokeWidth="1.8"
+                                                            style="-fx-scale-x:0.85; -fx-scale-y:0.85;" />
+                                                    </StackPane>
                                                     <VBox spacing="4">
                                                         <Label text="한국사+" styleClass="folder-card-title"/>
                                                         <Label text="8개" styleClass="folder-card-count"/>
@@ -102,7 +141,14 @@
 
                                                 <HBox alignment="CENTER_LEFT" spacing="12"
                                                       styleClass="folder-card">
-                                                    <Label text="📁" styleClass="folder-card-icon"/>
+                                                    <StackPane styleClass="folder-icon-wrapper">
+                                                        <SVGPath
+                                                            content="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
+                                                            stroke="#F4B400"
+                                                            fill="transparent"
+                                                            strokeWidth="1.8"
+                                                            style="-fx-scale-x:0.85; -fx-scale-y:0.85;" />
+                                                    </StackPane>
                                                     <VBox spacing="4">
                                                         <Label text="수학+" styleClass="folder-card-title"/>
                                                         <Label text="15개" styleClass="folder-card-count"/>
@@ -111,7 +157,14 @@
 
                                                 <HBox alignment="CENTER_LEFT" spacing="12"
                                                       styleClass="folder-card">
-                                                    <Label text="📁" styleClass="folder-card-icon"/>
+                                                    <StackPane styleClass="folder-icon-wrapper">
+                                                        <SVGPath
+                                                            content="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
+                                                            stroke="#F4B400"
+                                                            fill="transparent"
+                                                            strokeWidth="1.8"
+                                                            style="-fx-scale-x:0.85; -fx-scale-y:0.85;" />
+                                                    </StackPane>
                                                     <VBox spacing="4">
                                                         <Label text="기타+" styleClass="folder-card-title"/>
                                                         <Label text="5개" styleClass="folder-card-count"/>
@@ -125,7 +178,17 @@
                                 <VBox spacing="12">
                                     <children>
                                         <HBox spacing="8" alignment="CENTER_LEFT">
-                                            <Label text="🕒" styleClass="section-icon"/>
+                                            <StackPane prefWidth="24" prefHeight="24" alignment="CENTER">
+                                                <SVGPath
+                                                    content="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z
+                                                            M12 6v6l4 2"
+                                                    stroke="#A855DD"
+                                                    fill="transparent"
+                                                    strokeWidth="1.8"
+                                                    strokeLineCap="ROUND"
+                                                    strokeLineJoin="ROUND"
+                                                    style="-fx-scale-x:0.9; -fx-scale-y:0.9;" />
+                                            </StackPane>
                                             <Label text="최근 노트" styleClass="section-heading"/>
                                         </HBox>
                                         <VBox fx:id="recentNotesBox" spacing="12"/>
