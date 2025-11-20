@@ -75,7 +75,7 @@
                                 <StackPane styleClass="dashboard-stat-icon-circle">
                                     <SVGPath
                                             content="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z M14 2v5a1 1 0 0 0 1 1h5 M10 9H8 M16 13H8 M16 17H8"
-                                            stroke="white"
+                                            stroke="rgb(169, 85, 221)"
                                             fill="transparent"
                                             strokeWidth="2"
                                             strokeLineCap="ROUND"
@@ -93,7 +93,7 @@
                                 <StackPane styleClass="dashboard-stat-icon-circle, purple">
                                     <SVGPath
                                             content="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
-                                            stroke="white"
+                                            stroke="rgb(188, 108, 220)"
                                             fill="transparent"
                                             strokeWidth="2"
                                             strokeLineCap="ROUND"
@@ -111,7 +111,7 @@
                                 <StackPane styleClass="dashboard-stat-icon-circle, green">
                                     <SVGPath
                                             content="M16 7h6v6 M22 7l-8.5 8.5-5-5L2 17"
-                                            stroke="white"
+                                            stroke="rgb(232, 196, 63)"
                                             fill="transparent"
                                             strokeWidth="2"
                                             strokeLineCap="ROUND"
