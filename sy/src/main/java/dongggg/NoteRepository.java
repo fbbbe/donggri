@@ -138,14 +138,9 @@ public class NoteRepository {
         String deleteNoteSql = "DELETE FROM notes WHERE id = ?";
 
         try (Connection conn = Database.getConnection();
-<<<<<<< HEAD
                 PreparedStatement deletePairs = conn.prepareStatement(deletePairsSql);
                 PreparedStatement deleteNoteFolder = conn.prepareStatement(deleteNoteFolderSql);
                 PreparedStatement deleteNote = conn.prepareStatement(deleteNoteSql)) {
-=======
-             PreparedStatement deletePairs = conn.prepareStatement(deletePairsSql);
-             PreparedStatement deleteNote = conn.prepareStatement(deleteNoteSql)) {
->>>>>>> 37639394932c6f74760a17e4a0be2253bf5f9a6b
 
             conn.setAutoCommit(false);
 
