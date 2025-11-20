@@ -84,6 +84,42 @@ public class NoteRepository {
         return notes;
     }
 
+    public static List<Note> findByFolder(int folderId) {
+        List<Note> notes = new ArrayList<>();
+
+        String sql = """
+                SELECT n.id, n.title, n.content, n.created_at, n.updated_at, n.type
+                FROM notes n
+                JOIN note_folders nf ON n.id = nf.note_id
+                WHERE nf.folder_id = ?
+                ORDER BY datetime(n.updated_at) DESC
+                """;
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, folderId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    notes.add(new Note(
+                            rs.getInt("id"),
+                            rs.getString("title"),
+                            rs.getString("content"),
+                            rs.getString("created_at"),
+                            rs.getString("updated_at"),
+                            rs.getString("type")));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("[DB] 폴더별 노트 조회 중 오류 발생");
+            e.printStackTrace();
+        }
+
+        return notes;
+    }
+
     // 새 노트 INSERT (id 세팅까지 해줌)
     public static void insert(Note note) {
         String sql = "INSERT INTO notes (title, content, type) VALUES (?, ?, ?)";
