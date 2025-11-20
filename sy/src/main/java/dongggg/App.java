@@ -6,12 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class App extends Application {
 
     private static Scene scene;
+    private static Stage stage;
+
     private static final String MAIN_STYLESHEET =
             App.class.getResource("styles.css").toExternalForm();
     private static final Color ROOT_BACKGROUND = Color.web("#fdf4ff");
@@ -20,6 +21,8 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         Database.init();
         NoteRepository.ensureSampleData();
+
+        App.stage = stage;
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("main-view.fxml"));
         Parent root = loader.load();
@@ -36,12 +39,17 @@ public class App extends Application {
         return scene;
     }
 
+    private static void replaceSceneRoot(Parent root) {
+        scene = new Scene(root, 1200, 720);
+        scene.getStylesheets().add(MAIN_STYLESHEET);
+        stage.setScene(scene);
+    }
+
     public static void showMainView() {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("main-view.fxml"));
             Parent root = loader.load();
-            scene.setRoot(root);
-            reloadStylesheet();
+            replaceSceneRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,8 +63,7 @@ public class App extends Application {
             NoteDetailController controller = loader.getController();
             controller.setNote(note);
 
-            scene.setRoot(root);
-            reloadStylesheet();
+            replaceSceneRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,8 +77,7 @@ public class App extends Application {
             ConceptNoteController controller = loader.getController();
             controller.setNote(note);
 
-            scene.setRoot(root);
-            reloadStylesheet();
+            replaceSceneRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,49 +87,29 @@ public class App extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("note-type-select-view.fxml"));
             Parent root = loader.load();
-            scene.setRoot(root);
-            reloadStylesheet();
+            replaceSceneRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // 🔥🔥 여기! 대시보드 전환 기능
+    /** 🔥 대시보드 전환 */
     public static void showDashboardView() {
         try {
-            System.out.println("🔥 App.showDashboardView() called");
-
             FXMLLoader loader = new FXMLLoader(App.class.getResource("dashboard-view.fxml"));
-            Parent newRoot = loader.load();
-
-            if (scene == null) {
-                System.out.println("❌ Scene is NULL!");
-                return;
-            }
-
-            // ⭐ 현재 root를 완전히 교체 (문제되는 setRoot 중복 버그 제거)
-            scene.setRoot(newRoot);
-
-            // ⭐ CSS 재적용
-            scene.getStylesheets().clear();
-            scene.getStylesheets().add(MAIN_STYLESHEET);
-
-            System.out.println("🔥 Dashboard root set successfully!");
-
+            Parent root = loader.load();
+            replaceSceneRoot(root);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-
-    // 🔥 시험 시작 화면 전환 기능
+    /** 🔥 시험 시작 화면 전환 */
     public static void showQuizStartView() {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("quiz-start-view.fxml"));
             Parent root = loader.load();
-            scene.setRoot(root);
-            reloadStylesheet();
+            replaceSceneRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -137,6 +123,9 @@ public class App extends Application {
         }
     }
 
+    public static Stage getStage() {
+        return stage;
+    }
 
     public static void main(String[] args) {
         launch();

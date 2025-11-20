@@ -14,9 +14,9 @@ import java.util.List;
 
 public class QuizStartController {
 
-    @FXML private VBox noteListBox;           // 카드들이 들어가는 VBox
-    @FXML private Label selectedCountLabel;   // "n개 선택됨"
-    @FXML private Button startButton;         // 시험 시작 버튼
+    @FXML private VBox noteListBox;
+    @FXML private Label selectedCountLabel;
+    @FXML private Button startButton;
 
     private List<NoteCardController> cardControllers = new ArrayList<>();
     private final QuizService quizService = new QuizServiceImpl();
@@ -24,7 +24,6 @@ public class QuizStartController {
     @FXML
     public void initialize() {
 
-        // 최근 노트 30개 가져오기
         List<Note> notes = NoteRepository.findRecent(30);
 
         for (Note note : notes) {
@@ -35,8 +34,8 @@ public class QuizStartController {
                 NoteCardController controller = loader.getController();
                 controller.setData(note);
 
-                // 체크박스 선택 감지 → 선택 개수 갱신
-                controller.getCheckBox().selectedProperty().addListener((o, oldV, newV) -> updateSelectedCount());
+                controller.getCheckBox().selectedProperty()
+                        .addListener((o, oldV, newV) -> updateSelectedCount());
 
                 cardControllers.add(controller);
                 noteListBox.getChildren().add(card);
@@ -47,7 +46,6 @@ public class QuizStartController {
         }
     }
 
-    // 선택 개수 업데이트
     private void updateSelectedCount() {
         long count = cardControllers.stream()
                 .filter(NoteCardController::isSelected)
@@ -57,56 +55,19 @@ public class QuizStartController {
         startButton.setDisable(count == 0);
     }
 
-    // 뒤로 가기
+    /** 🔙 대시보드 이동 */
     @FXML
     private void goDashboard() {
-        System.out.println("[QuizStart] goDashboard called!");
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
-            Parent root = loader.load();
-
-            Scene dashboardScene = new Scene(root, 1200, 720);
-            dashboardScene.getStylesheets().add(
-                    getClass().getResource("styles.css").toExternalForm()
-            );
-
-            // ❗ noteListBox 로부터 Stage 가져오기
-            Stage stage = (Stage) noteListBox.getScene().getWindow();
-
-            stage.setScene(dashboardScene);
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        App.showDashboardView();
     }
 
-
-    
-
+    /** 뒤로가기 = 대시보드 */
     @FXML
     private void goBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root, 1200, 720);
-            scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-
-            Stage stage = (Stage) noteListBox.getScene().getWindow();
-            stage.setScene(scene);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        App.showDashboardView();
     }
 
-
-
-
-
-    // 시험 시작
+    /** 🔥 시험 시작 */
     @FXML
     public void startQuiz() {
 
@@ -124,20 +85,14 @@ public class QuizStartController {
             Parent root = loader.load();
 
             QuizController controller = loader.getController();
-
             controller.initQuiz(firstNote.getId());
-
-            // 🔥 추가된 1줄 → 이전 화면 저장!
             controller.setPreviousScene(startButton.getScene());
 
-            Stage stage = (Stage) noteListBox.getScene().getWindow();
+            Stage stage = App.getStage();
             stage.setScene(new Scene(root, 1200, 720));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    
-
 }
