@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -40,7 +39,7 @@ public class MainController {
     private Button newNoteButton;
 
     @FXML
-    private FlowPane folderFlow;
+    private HBox folderRow;
 
     @FXML
     private VBox recentNotesBox;
@@ -120,22 +119,22 @@ public class MainController {
 
     /** 저장된 폴더를 카드로 표시 */
     private void loadFolders() {
-        if (folderFlow == null) {
+        if (folderRow == null) {
             return;
         }
 
-        folderFlow.getChildren().clear();
+        folderRow.getChildren().clear();
 
         // 기본 폴더 3종 (전체/개념/일반)
         NoteRepository.NoteStats stats = NoteRepository.getNoteStats();
-        folderFlow.getChildren().add(createFolderCard("전체 노트", stats.totalCount()));
-        folderFlow.getChildren().add(createFolderCard("개념 노트", stats.conceptCount()));
-        folderFlow.getChildren().add(createFolderCard("일반 노트", stats.normalCount()));
+        folderRow.getChildren().add(createFolderCard("전체 노트", stats.totalCount()));
+        folderRow.getChildren().add(createFolderCard("개념 노트", stats.conceptCount()));
+        folderRow.getChildren().add(createFolderCard("일반 노트", stats.normalCount()));
 
         // 사용자 생성 폴더
         var folders = FolderRepository.findAll();
         for (Folder folder : folders) {
-            folderFlow.getChildren().add(createFolderCard(folder.getName(), 0));
+            folderRow.getChildren().add(createFolderCard(folder.getName(), 0));
         }
     }
 
@@ -171,10 +170,10 @@ public class MainController {
     }
 
     private void applyFolderHoverAnimations() {
-        if (folderFlow == null) {
+        if (folderRow == null) {
             return;
         }
-        folderFlow.getChildren().stream()
+        folderRow.getChildren().stream()
                 .filter(node -> node instanceof Region)
                 .map(node -> (Region) node)
                 .forEach(region -> installHoverAnimation(

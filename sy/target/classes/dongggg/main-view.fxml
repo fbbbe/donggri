@@ -120,9 +120,18 @@
                                                 style="-fx-scale-x: 0.85 ; -fx-scale-y: 0.85;" />
                                             <Label text="폴더" styleClass="section-heading"/>
                                         </HBox>
-                                        <FlowPane fx:id="folderFlow"
-                                                  hgap="16" vgap="12"
-                                                  prefWrapLength="960"/>
+                                        <ScrollPane fx:id="folderScroll"
+                                                    hbarPolicy="NEVER"
+                                                    vbarPolicy="NEVER"
+                                                    pannable="true"
+                                                    fitToHeight="true"
+                                                    styleClass="folder-scroll">
+                                            <content>
+                                                <HBox fx:id="folderRow"
+                                                      spacing="16"
+                                                      alignment="CENTER_LEFT"/>
+                                            </content>
+                                        </ScrollPane>
                                     </children>
                                 </VBox>
 

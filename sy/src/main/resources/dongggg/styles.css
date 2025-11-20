@@ -325,6 +325,17 @@
     -fx-font-size: 13px;
 }
 
+.folder-scroll {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 0;
+}
+
+.folder-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+
 .note-tag {
     -fx-background-color: #F5F0FB;
     -fx-background-radius: 999;
