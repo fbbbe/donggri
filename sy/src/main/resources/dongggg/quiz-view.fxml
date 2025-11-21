@@ -3,6 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.image.ImageView?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -34,7 +35,9 @@
                     <Label fx:id="timerLabel" text="00:00" styleClass="timer-text"/>
                 </HBox>
 
-                <Label text="🐥" styleClass="mascot-icon"/>
+                <ImageView fx:id="quizMascotImage"
+                           fitWidth="36" fitHeight="36"
+                           preserveRatio="true" smooth="true"/>
             </HBox>
 
         </HBox>

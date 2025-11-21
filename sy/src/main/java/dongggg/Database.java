@@ -74,11 +74,13 @@ public class Database {
                         id INTEGER PRIMARY KEY CHECK (id = 1),
                         cumulative_score INTEGER NOT NULL DEFAULT 0,
                         cumulative_correct INTEGER NOT NULL DEFAULT 0,
-                        exam_count INTEGER NOT NULL DEFAULT 0
+                        exam_count INTEGER NOT NULL DEFAULT 0,
+                        selected_skin INTEGER NOT NULL DEFAULT 1
                     );
                     """;
             stmt.execute(createDonggriStatus);
             ensureDonggriStatusRow(conn);
+            ensureDonggriStatusColumns(conn);
 
             String createFolders = """
                     CREATE TABLE IF NOT EXISTS folders (
@@ -104,7 +106,16 @@ public class Database {
                     """;
             stmt.execute(createNoteFolders);
 
-            System.out.println("[DB] notes / concept_pairs / donggri_levels / donggri_status / folders / note_folders 테이블 초기화 완료");
+            String createMascotSkins = """
+                    CREATE TABLE IF NOT EXISTS mascot_skins (
+                        level_threshold INTEGER PRIMARY KEY,
+                        image_path TEXT NOT NULL
+                    );
+                    """;
+            stmt.execute(createMascotSkins);
+            ensureMascotSkins(conn);
+
+            System.out.println("[DB] notes / concept_pairs / donggri_levels / donggri_status / folders / note_folders / mascot_skins 테이블 초기화 완료");
         } catch (SQLException e) {
             System.out.println("[DB] 초기화 중 오류 발생");
             e.printStackTrace();
@@ -118,6 +129,10 @@ public class Database {
         ensureColumnExists(conn, "concept_pairs", "total_attempts", "INTEGER NOT NULL DEFAULT 0");
         ensureColumnExists(conn, "concept_pairs", "correct_count", "INTEGER NOT NULL DEFAULT 0");
         ensureColumnExists(conn, "concept_pairs", "wrong_rate", "REAL NOT NULL DEFAULT 0.0");
+    }
+
+    private static void ensureDonggriStatusColumns(Connection conn) throws SQLException {
+        ensureColumnExists(conn, "donggri_status", "selected_skin", "INTEGER NOT NULL DEFAULT 1");
     }
 
     /**
@@ -156,7 +171,7 @@ public class Database {
             }
         }
 
-        String insertSql = "INSERT INTO donggri_status (id, cumulative_score, cumulative_correct) VALUES (1, 0, 0)";
+        String insertSql = "INSERT INTO donggri_status (id, cumulative_score, cumulative_correct, exam_count, selected_skin) VALUES (1, 0, 0, 0, 1)";
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(insertSql);
         }
@@ -197,6 +212,31 @@ public class Database {
 
                 scoreIncrement += 30;
                 correctIncrement += 5;
+            }
+            pstmt.executeBatch();
+        }
+    }
+
+    /**
+     * 레벨 구간별 기본 마스코트 스킨을 등록한다.
+     * 기본 스킨: dong1 (레벨 1), 이후 5단위 dong5~dong100.
+     */
+    private static void ensureMascotSkins(Connection conn) throws SQLException {
+        String deleteSql = "DELETE FROM mascot_skins";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute(deleteSql);
+        }
+
+        String insertSql = "INSERT INTO mascot_skins (level_threshold, image_path) VALUES (?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+            pstmt.setInt(1, 1);
+            pstmt.setString(2, "dongggg/images/dong1.png");
+            pstmt.addBatch();
+
+            for (int t = 5; t <= 100; t += 5) {
+                pstmt.setInt(1, t);
+                pstmt.setString(2, "dongggg/images/dong" + t + ".png");
+                pstmt.addBatch();
             }
             pstmt.executeBatch();
         }

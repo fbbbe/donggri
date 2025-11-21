@@ -59,12 +59,12 @@
 
                             <VBox spacing="12" alignment="CENTER">
                                 <StackPane prefWidth="200" prefHeight="200"
-                                           styleClass="dashboard-mascot-circle">
-                                    <ImageView fitWidth="200" fitHeight="200" preserveRatio="true" smooth="true">
-                                        <image>
-                                            <Image url="@images/dongdong.png"/>
-                                        </image>
-                                    </ImageView>
+                                           styleClass="dashboard-mascot-circle"
+                                           onMouseClicked="#openWardrobe">
+                                    <ImageView fx:id="mascotImageView"
+                                               fitWidth="200" fitHeight="200"
+                                               preserveRatio="true" smooth="true"
+                                               styleClass="dashboard-mascot-image"/>
                                 </StackPane>
                                 <Label text="동그리" styleClass="dashboard-mascot-name"/>
                             </VBox>

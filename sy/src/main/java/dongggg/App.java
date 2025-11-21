@@ -114,6 +114,16 @@ public class App extends Application {
         }
     }
 
+    public static void showWardrobeView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("wardrobe-view.fxml"));
+            Parent root = loader.load();
+            replaceSceneRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void showFolderCreateView() {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("folder-create-view.fxml"));

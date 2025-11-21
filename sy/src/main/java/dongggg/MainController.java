@@ -24,6 +24,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
+import javafx.scene.image.ImageView;
+import dongggg.MascotProvider;
+import dongggg.DonggriRepository;
 
 import java.util.List;
 import dongggg.Folder;
@@ -51,6 +54,8 @@ public class MainController {
     private VBox recentNotesBox;
     @FXML
     private Label notesSectionLabel;
+    @FXML
+    private ImageView avatarImageView;
 
     private static final Duration HOVER_DURATION = Duration.millis(240);
     private static final String FOLDER_ICON_COLOR = "#F4B400";
@@ -72,6 +77,8 @@ public class MainController {
         searchField.textProperty().addListener((obs, oldValue, newValue) -> {
             onSearch(newValue);
         });
+
+        updateAvatarImage();
     }
 
     /** 🔍 검색 기능 */
@@ -477,6 +484,11 @@ public class MainController {
     @FXML
     private void onOpenMascot() {
         App.showDashboardView();
+    }
+
+    private void updateAvatarImage() {
+        if (avatarImageView == null) return;
+        avatarImageView.setImage(MascotProvider.loadForLevel(DonggriRepository.getLevelInfo().getCurrentLevel()));
     }
 
     private void installHoverAnimation(Region region,

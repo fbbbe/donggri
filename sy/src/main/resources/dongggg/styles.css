@@ -652,6 +652,102 @@
     -fx-text-fill: #D9B5FF;
 }
 
+/* ---------------------------------
+ * Wardrobe
+ * --------------------------------- */
+.wardrobe-root {
+    -fx-padding: 24 32 40 32;
+    -fx-spacing: 20;
+}
+
+.wardrobe-topbar .button-outlined {
+    -fx-background-color: transparent;
+}
+
+.wardrobe-title {
+    -fx-text-fill: #a855dd;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+}
+
+.wardrobe-subtitle {
+    -fx-text-fill: #c4b5d8;
+    -fx-font-size: 13px;
+}
+
+.wardrobe-main-card {
+    -fx-background-color: white;
+    -fx-background-radius: 28;
+    -fx-border-radius: 28;
+    -fx-border-color: #e8dff5;
+    -fx-border-width: 2;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.14), 20, 0.32, 0, 6);
+}
+
+.wardrobe-main-name {
+    -fx-text-fill: #a855dd;
+    -fx-font-size: 16px;
+    -fx-font-weight: 800;
+}
+
+.wardrobe-main-desc {
+    -fx-text-fill: #c4b5d8;
+    -fx-font-size: 12px;
+}
+
+.wardrobe-section-title {
+    -fx-text-fill: #a855dd;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+}
+
+.wardrobe-skin-list {
+    -fx-padding: 8 4 8 4;
+}
+
+.wardrobe-skin-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #e8dff5;
+    -fx-border-width: 2;
+    -fx-padding: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0.25, 0, 2);
+    -fx-cursor: hand;
+}
+
+.wardrobe-skin-card.selected {
+    -fx-border-color: #a855dd;
+    -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.26), 16, 0.35, 0, 4);
+}
+
+.wardrobe-skin-card.locked {
+    -fx-opacity: 0.7;
+}
+
+.wardrobe-skin-thumb {
+    -fx-background-color: linear-gradient(#fff7df, #ffd966);
+    -fx-background-radius: 16;
+}
+
+.wardrobe-skin-name {
+    -fx-text-fill: #a855dd;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+
+.wardrobe-lock-icon {
+    -fx-font-size: 18px;
+    -fx-text-fill: #c4b5d8;
+}
+
+.wardrobe-lock-text {
+    -fx-text-fill: #c4b5d8;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+
 .note-type-choice {
     -fx-background-radius: 30;
     -fx-border-radius: 30;

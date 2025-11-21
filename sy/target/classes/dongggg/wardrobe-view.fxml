@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="dongggg.WardrobeController"
+            stylesheets="@styles.css"
+            styleClass="root-pane,main-root">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="wardrobe-topbar">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+            <Button text="← 뒤로가기"
+                    onAction="#onBack"
+                    styleClass="button-outlined"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    styleClass="transparent-scroll-pane">
+            <content>
+                <VBox alignment="TOP_CENTER" spacing="28" styleClass="wardrobe-root">
+                    <VBox alignment="CENTER" spacing="6">
+                        <Label text="동그리 옷장 ✨" styleClass="wardrobe-title"/>
+                        <Label text="마음에 드는 동그리를 골라보세요!" styleClass="wardrobe-subtitle"/>
+                        <Label fx:id="currentLevelLabel" text="현재 레벨: --" styleClass="wardrobe-badge"/>
+                    </VBox>
+
+                    <StackPane styleClass="wardrobe-main-card">
+                        <VBox alignment="CENTER" spacing="12">
+                            <ImageView fx:id="currentSkinImage"
+                                       fitWidth="240" fitHeight="240"
+                                       preserveRatio="true" smooth="true"/>
+                            <Label fx:id="currentSkinNameLabel" text="기본 동그리" styleClass="wardrobe-main-name"/>
+                            <Label fx:id="currentSkinDescLabel" text="귀여운 동그리" styleClass="wardrobe-main-desc"/>
+                        </VBox>
+                    </StackPane>
+
+                    <Label text="스타일 컬렉션" styleClass="wardrobe-section-title"/>
+
+                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" styleClass="transparent-scroll-pane">
+                        <content>
+                            <HBox fx:id="skinListBox"
+                                  spacing="14"
+                                  alignment="CENTER_LEFT"
+                                  styleClass="wardrobe-skin-list"/>
+                        </content>
+                    </ScrollPane>
+
+                    <Button text="선택 완료" onAction="#onConfirm" styleClass="quiz-mode-start,purple"/>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

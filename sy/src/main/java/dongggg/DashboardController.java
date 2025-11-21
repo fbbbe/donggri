@@ -16,6 +16,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
+import dongggg.MascotProvider;
 
 
 public class DashboardController {
@@ -29,6 +31,7 @@ public class DashboardController {
     @FXML private Label conceptNoteCountLabel;
     @FXML private Label examCountLabel;
     @FXML private Label accuracyLabel;
+    @FXML private ImageView mascotImageView;
 
 
 
@@ -63,6 +66,7 @@ public class DashboardController {
         updateConceptNoteCount();
         updateExamCount();
         updateAccuracy();
+        updateMascotImage(DonggriRepository.getLevelInfo().getCurrentLevel());
 
 
     }
@@ -92,6 +96,12 @@ public class DashboardController {
     @FXML
     private void goQuiz() {
         switchScene("quiz-start-view.fxml");
+    }
+
+    /** 🔥 동그리 옷장 이동 */
+    @FXML
+    private void openWardrobe() {
+        App.showWardrobeView();
     }
 
 
@@ -132,6 +142,13 @@ public class DashboardController {
         if (levelProgressBar != null) {
             levelProgressBar.setProgress(info.getProgressRatio());
         }
+
+        updateMascotImage(info.getCurrentLevel());
+    }
+
+    private void updateMascotImage(int level) {
+        if (mascotImageView == null) return;
+        mascotImageView.setImage(MascotProvider.loadForLevel(level));
     }
 
     // ===== 아래는 hover animation 그대로 유지 =====

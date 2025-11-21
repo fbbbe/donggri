@@ -7,6 +7,8 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -25,11 +27,10 @@
                                styleClass="avatar-circle, main-avatar"
                                onMouseClicked="#onOpenMascot">
                         <children>
-                            <Label text="🐤">
-                                <style>
-                                    -fx-font-size: 34px;
-                                </style>
-                            </Label>
+                            <ImageView fx:id="avatarImageView"
+                                       fitWidth="60" fitHeight="60"
+                                       preserveRatio="true" smooth="true"
+                                       styleClass="main-avatar-image"/>
                         </children>
                     </StackPane>
 

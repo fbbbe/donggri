@@ -10,11 +10,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 import java.util.List;
 import java.util.ArrayList;
 import dongggg.Note;
+import dongggg.MascotProvider;
+import dongggg.DonggriRepository;
 import dongggg.QuizService;
 
 public class QuizController {
@@ -23,6 +26,7 @@ public class QuizController {
     @FXML private TextArea answerArea;
     @FXML private Label progressLabel;
     @FXML private Label timerLabel;   // ⬅️ 타이머 표시 Label (FXML에 있어야 함!)
+    @FXML private ImageView quizMascotImage;
 
     private final QuizService quizService = new QuizServiceImpl();
     private List<ConceptPair> quizList = new ArrayList<>();
@@ -64,6 +68,10 @@ public class QuizController {
 
         // 🔥 타이머 시작
         startTimer();
+
+        if (quizMascotImage != null) {
+            quizMascotImage.setImage(MascotProvider.loadForLevel(DonggriRepository.getLevelInfo().getCurrentLevel()));
+        }
     }
 
     private void loadQuestion(int index) {
