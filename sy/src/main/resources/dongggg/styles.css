@@ -480,6 +480,7 @@
 }
 
 .quiz-mode-card.purple {
+    
     -fx-border-color: #E7DBFA;
 }
 
@@ -491,6 +492,18 @@
     -fx-padding: 14;
     -fx-background-radius: 18;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 16, 0.24, 0, 3);
+
+    -fx-pref-width: 80;
+    -fx-pref-height: 80;
+
+    -fx-min-width: 80;
+    -fx-min-height: 80;
+
+    -fx-max-width: 80;
+    -fx-max-height: 80;
+
+    -fx-background-radius: 24;
+    -fx-alignment: center;
 }
 
 .quiz-mode-icon-purple,
@@ -498,6 +511,7 @@
     -fx-padding: 14;
     -fx-background-radius: 18;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 16, 0.24, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.3), 18, 0.32, 0, 4);
 }
 
 .quiz-mode-icon-purple {

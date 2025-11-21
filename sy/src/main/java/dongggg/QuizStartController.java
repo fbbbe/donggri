@@ -94,6 +94,9 @@ public class QuizStartController {
             QuizModeSelectController controller = loader.getController();
             controller.setSelectedNotes(selectedNotes);
 
+            // 🔥 추가된 부분 — 여기서 previousScene 저장!
+            controller.setPreviousScene(startButton.getScene());
+
             Stage stage = App.getStage();
             stage.setScene(new Scene(root, 1200, 720));
 
@@ -101,4 +104,5 @@ public class QuizStartController {
             e.printStackTrace();
         }
     }
+
 }

@@ -170,8 +170,8 @@ public class Database {
                 return;
             }
         }
-
-        String insertSql = "INSERT INTO donggri_status (id, cumulative_score, cumulative_correct, exam_count, selected_skin) VALUES (1, 0, 0, 0, 1)";
+// 1, 0, 0, 0, 1
+        String insertSql = "INSERT INTO donggri_status (id, cumulative_score, cumulative_correct, exam_count, selected_skin) VALUES (1, 999999, 999999, 0, 1)";
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(insertSql);
         }
