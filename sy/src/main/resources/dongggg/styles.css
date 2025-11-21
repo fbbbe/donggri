@@ -656,7 +656,7 @@
  * Wardrobe
  * --------------------------------- */
 .wardrobe-root {
-    -fx-padding: 24 32 40 32;
+    -fx-padding: 24 64 40 64;
     -fx-spacing: 20;
 }
 
@@ -681,7 +681,7 @@
     -fx-border-radius: 28;
     -fx-border-color: #e8dff5;
     -fx-border-width: 2;
-    -fx-padding: 24;
+    -fx-padding: 18;
     -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.14), 20, 0.32, 0, 6);
 }
 
@@ -694,6 +694,33 @@
 .wardrobe-main-desc {
     -fx-text-fill: #c4b5d8;
     -fx-font-size: 12px;
+}
+
+.wardrobe-badge {
+    -fx-padding: 6 14;
+    -fx-background-color: linear-gradient(#f3eaff, #fff7df);
+    -fx-background-radius: 999;
+    -fx-border-color: #e8dff5;
+    -fx-border-width: 2;
+    -fx-border-radius: 999;
+    -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.12), 12, 0.3, 0, 2);
+}
+
+.wardrobe-badge:hover {
+    -fx-background-color: linear-gradient(#fff7df, #ffd966);
+    -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.22), 14, 0.32, 0, 3);
+}
+
+.wardrobe-badge-icon {
+    -fx-text-fill: #f4b400;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+}
+
+.wardrobe-badge-text {
+    -fx-text-fill: #a855dd;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
 }
 
 .wardrobe-section-title {
@@ -720,6 +747,15 @@
 .wardrobe-skin-card.selected {
     -fx-border-color: #a855dd;
     -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.26), 16, 0.35, 0, 4);
+}
+
+.wardrobe-skin-card.unlocked:hover {
+    -fx-border-color: #fbbf24;
+    -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.20), 14, 0.3, 0, 3);
+    -fx-translate-y: -2;
+    -fx-background-color: linear-gradient(#fff8e1, #ffe8a3);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
 }
 
 .wardrobe-skin-card.locked {
@@ -1063,12 +1099,12 @@
 }
 
 .dashboard-progress > .track {
-    -fx-background-color: #F5F0FB;
+    -fx-background-color: #f7f3ff;
     -fx-background-radius: 999;
 }
 
 .dashboard-progress > .bar {
-    -fx-background-color: linear-gradient(#A855DD, #FFE999);
+    -fx-background-color: linear-gradient(#FFE4B3, #FBBF24);
     -fx-background-radius: 999;
 }
 
@@ -1137,35 +1173,35 @@
 }
 
 .dashboard-primary-button {
-    -fx-background-color: linear-gradient(#A855DD, #9333CC);
+    -fx-background-color: linear-gradient(#B98BF3, #A56BE4);
     -fx-text-fill: white;
     -fx-font-size: 15px;
     -fx-font-weight: 600;
     -fx-background-radius: 18;
     -fx-border-radius: 18;
     -fx-border-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.35), 18, 0.35, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.25), 16, 0.30, 0, 4);
     -fx-cursor: hand;
 }
 
 .dashboard-primary-button:hover {
-    -fx-background-color: linear-gradient(#B46AF0, #A855DD);
+    -fx-background-color: linear-gradient(#C6A0F6, #B17CEC);
 }
 
 .dashboard-secondary-button {
-    -fx-background-color: linear-gradient(#FFE999, #FFD966);
-    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(#FFECCD, #FFDEA4);
+    -fx-text-fill: #6B4B00;
     -fx-font-size: 15px;
     -fx-font-weight: 600;
     -fx-background-radius: 18;
     -fx-border-radius: 18;
     -fx-border-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(255, 201, 102, 0.4), 16, 0.35, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(255, 201, 102, 0.3), 16, 0.30, 0, 3);
     -fx-cursor: hand;
 }
 
 .dashboard-secondary-button:hover {
-    -fx-background-color: linear-gradient(#FFD966, #FFC640);
+    -fx-background-color: linear-gradient(#FFE4B3, #FFD46C);
 }
 
 .dashboard-tertiary-button {

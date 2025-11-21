@@ -68,10 +68,9 @@ public class WardrobeController {
 
         StackPane card = new StackPane();
         card.getStyleClass().add("wardrobe-skin-card");
-        if (selected && unlocked)
-            card.getStyleClass().add("selected");
-        if (!unlocked)
-            card.getStyleClass().add("locked");
+        if (selected && unlocked) card.getStyleClass().add("selected");
+        if (!unlocked) card.getStyleClass().add("locked");
+        if (unlocked) card.getStyleClass().add("unlocked");
 
         VBox box = new VBox(6);
         box.setAlignment(javafx.geometry.Pos.CENTER);
