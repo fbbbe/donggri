@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class DashboardController {
 
     @FXML private Button noteManageButton;
@@ -26,6 +27,10 @@ public class DashboardController {
     @FXML private Label levelHelperLabel;
     @FXML private ProgressBar levelProgressBar;
     @FXML private Label conceptNoteCountLabel;
+    @FXML private Label examCountLabel;
+    @FXML private Label accuracyLabel;
+
+
 
 
     private static final Duration HOVER_DURATION = Duration.millis(220);
@@ -56,6 +61,10 @@ public class DashboardController {
 
         updateLevelCard();
         updateConceptNoteCount();
+        updateExamCount();
+        updateAccuracy();
+
+
     }
 
     /** 🔥 개념 노트 개수 갱신 */
@@ -182,4 +191,21 @@ public class DashboardController {
                 color.getOpacity()
         );
     }
+
+    private void updateExamCount() {
+        int examCount = DonggriRepository.getExamCount();
+        if (examCountLabel != null) {
+            examCountLabel.setText(String.valueOf(examCount));
+        }
+    }
+
+    private void updateAccuracy() {
+        int accuracy = DonggriRepository.getAccuracyPercent();
+        if (accuracyLabel != null) {
+            accuracyLabel.setText(accuracy + "%");
+        }
+    }
+
+
+
 }

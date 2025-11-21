@@ -4,10 +4,12 @@ public class DonggriStatus {
 
     private int cumulativeScore;
     private int cumulativeCorrect;
+    private int examCount;   // ⭐ 추가
 
-    public DonggriStatus(int cumulativeScore, int cumulativeCorrect) {
+    public DonggriStatus(int cumulativeScore, int cumulativeCorrect, int examCount) {
         this.cumulativeScore = cumulativeScore;
         this.cumulativeCorrect = cumulativeCorrect;
+        this.examCount = examCount;
     }
 
     public int getCumulativeScore() {
@@ -24,5 +26,13 @@ public class DonggriStatus {
 
     public void setCumulativeCorrect(int cumulativeCorrect) {
         this.cumulativeCorrect = cumulativeCorrect;
+    }
+
+    public int getExamCount() {
+        return examCount;
+    }
+
+    public void setExamCount(int examCount) {
+        this.examCount = examCount;
     }
 }
