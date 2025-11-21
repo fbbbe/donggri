@@ -73,7 +73,8 @@ public class Database {
                     CREATE TABLE IF NOT EXISTS donggri_status (
                         id INTEGER PRIMARY KEY CHECK (id = 1),
                         cumulative_score INTEGER NOT NULL DEFAULT 0,
-                        cumulative_correct INTEGER NOT NULL DEFAULT 0
+                        cumulative_correct INTEGER NOT NULL DEFAULT 0,
+                        exam_count INTEGER NOT NULL DEFAULT 0
                     );
                     """;
             stmt.execute(createDonggriStatus);

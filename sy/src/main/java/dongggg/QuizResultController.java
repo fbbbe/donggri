@@ -193,6 +193,7 @@ public class QuizResultController {
     @FXML
     private void goDashboard() {
         persistResults(quizListRef);
+        DonggriRepository.addExamCount();
         App.showDashboardView();
     }
 
