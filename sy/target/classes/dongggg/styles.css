@@ -1426,7 +1426,7 @@
     -fx-max-height: 48;
 
     -fx-padding: 8 14;        /* 패딩 줄여서 모서리와 글자 간격 통일 */
-    -fx-background-color: #F8F5FF;
+    -fx-background-color: #fefefe;
     -fx-background-radius: 14;
 
     -fx-border-color: #D3C5F5;
