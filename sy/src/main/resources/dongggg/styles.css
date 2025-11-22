@@ -839,7 +839,7 @@
     -fx-background-radius: 30;
     -fx-border-radius:25;
     -fx-border-width: 2;
-    -fx-padding: 20 24;
+    -fx-padding: 14 24;
     -fx-text-fill: #A855DD;
     -fx-font-weight: 600;
     -fx-font-size: 14px;
@@ -924,13 +924,13 @@
     -fx-max-height: 90;
 
 
-    -fx-background-color: linear-gradient(#c084fc, #a855dd);
+    -fx-background-color:  #FFF7DF;
     -fx-background-radius: 23;
     -fx-border-radius: 23;
 
     -fx-alignment: center;
 
-    -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.28), 18, 0.32, 0, 6);
+
 }
 
 
@@ -975,14 +975,21 @@
 }
 
 .button-primary-wide {
-    -fx-background-color: linear-gradient(#c084fc, #a855dd);
-    -fx-text-fill: white;
+    -fx-background-color: white;
+    -fx-text-fill: #e6ac0c;
     -fx-background-radius: 14;
     -fx-border-radius: 14;
+    -fx-border-color: #fdebb6;
+    -fx-border-width: 2;
     -fx-padding: 12 28;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.22), 16, 0.35, 0, 4);
 }
+
+.button-primary-wide:hover {
+    -fx-background-color:#fcf5e0;
+    -fx-border-color:#FFD966;
+}
+
 
 .folder-create-tip {
     -fx-text-fill: #C4B5D8;
@@ -1256,7 +1263,7 @@
     -fx-border-color: #E8DFF5;
     -fx-border-width: 2;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.12), 14, 0.3, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.14), 12, 0.26, 0, 0);
 }
 
 .dashboard-tertiary-button:hover {
@@ -1473,12 +1480,6 @@
 }
 
 
-/* 아이콘 배경 원 */
-.folder-create-icon {
-    -fx-background-color: linear-gradient(#c084fc, #a855dd);
-    -fx-background-radius: 28;
-    -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.28), 18, 0.32, 0, 5);
-}
 
 /* 큰 제목 */
 .folder-create-title {
@@ -1530,24 +1531,6 @@
 .button-outlined-wide:hover {
     -fx-background-color: #F5F0FB;
     -fx-border-color: #A855DD;
-}
-
-/* 오른쪽 생성 버튼 */
-.button-primary-wide {
-    -fx-background-color: linear-gradient(#FFE999, #FFD966);
-    -fx-text-fill: #3B275B;
-    -fx-font-weight: 600;
-
-    -fx-background-radius: 14;
-    -fx-border-radius: 14;
-    -fx-padding: 12 32;
-
-    -fx-effect: dropshadow(gaussian, rgba(255,201,102,0.35), 18, 0.35, 0, 5);
-    -fx-cursor: hand;
-}
-
-.button-primary-wide:hover {
-    -fx-background-color: linear-gradient(#FFD966, #FFC640);
 }
 
 /* 팁 */
