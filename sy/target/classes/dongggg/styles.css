@@ -729,11 +729,22 @@
 
 .wardrobe-badge {
     -fx-padding: 6 14;
-    -fx-background-color: linear-gradient(#f3eaff, #fff7df);
-    -fx-background-radius: 999;
-    -fx-border-color: #e8dff5;
-    -fx-border-width: 2;
-    -fx-border-radius: 999;
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+
+    /* 🌈 레벨 배지 – 보라 ↔ 노랑 그라데이션 테두리 느낌 */
+    -fx-background-color:
+        linear-gradient(from 100% 0% to 0% 100%, #facc15 0%, #7c3aed 100%), /* 바깥 레이어 (그라데이션) */
+        #faf8ff;                                                            /* 안쪽 레이어 (배경색) */
+    -fx-background-insets: 0, 2;      /* 바깥은 0, 안쪽은 2px 안으로 → 그라데이션이 테두리처럼 보임 */
+    -fx-background-radius: 999, 999;  /* pill 모양 유지 */
+
+    -fx-text-fill: #2d1b4e;
+
+    /* border 대신 위의 두 겹 background로 표현하니까 border는 꺼 둠 */
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+
     -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.12), 12, 0.3, 0, 2);
 }
 
