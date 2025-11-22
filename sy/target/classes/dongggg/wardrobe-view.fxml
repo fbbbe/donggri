@@ -45,7 +45,7 @@
                                     strokeLineCap="ROUND"
                                     strokeLineJoin="ROUND"
                                     style="-fx-scale-x:0.9; -fx-scale-y:0.9;
-                                        -fx-stroke: linear-gradient(from 100% 0% to 0% 100%, #facc15 0%, #7c3aed 100%);"/>
+                                        -fx-stroke: linear-gradient(from 100% 0% to 0% 100%,  #ffd83b 0%, #a06afd 100%);"/>
                             </StackPane>
                         </HBox>
 
