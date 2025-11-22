@@ -43,6 +43,23 @@
     -fx-background-color: transparent;
 }
 
+.main-scroll-pane .scroll-bar {
+    -fx-opacity: 0;
+    -fx-padding: -8;
+    -fx-max-width: 0;
+    -fx-pref-width: 0;
+}
+
+/* 모든 ScrollPane 스크롤바 숨김 (동작은 유지, 표시만 제거) */
+.scroll-pane .scroll-bar {
+    -fx-opacity: 0;
+    -fx-padding: -8;
+    -fx-max-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+}
+
 .no-border {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
