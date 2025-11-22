@@ -192,12 +192,28 @@ public class QuizResultController {
 
     @FXML
     private void goDashboard() {
+
         persistResults(quizListRef);
+
+        // 🔥 최근 시험 결과 저장
+        int correctCount = getCorrectCount();
+        int totalQuestions = answerStateList.size();
+        DonggriRepository.setLastExamResult(correctCount, totalQuestions);
+
         DonggriRepository.addExamCount();
         App.showDashboardView();
     }
 
+
     public void setPreviousScene(Scene scene) {
         this.previousScene = scene;
+    }
+
+    public int getCorrectCount() {
+        int correctCount = 0;
+        for (boolean b : answerStateList) {
+            if (b) correctCount++;
+        }
+        return correctCount;
     }
 }
