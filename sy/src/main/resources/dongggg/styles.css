@@ -960,7 +960,7 @@
 }
 
 .folder-create-input {
-    -fx-background-color: #F8F5FF;
+    -fx-background-color: #ffffff;
     -fx-background-radius: 16;
     -fx-border-color: #D3C5F5;
     -fx-border-radius: 16;
@@ -1237,40 +1237,44 @@
 }
 
 .dashboard-primary-button {
-    -fx-background-color: linear-gradient(#B98BF3, #A56BE4);
-    -fx-text-fill: white;
+    -fx-background-color: rgba(234, 179, 255, 0.35);
+    -fx-text-fill:rgb(188, 108, 220);
     -fx-font-size: 15px;
     -fx-font-weight: 600;
     -fx-background-radius: 18;
     -fx-border-radius: 18;
-    -fx-border-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.25), 16, 0.30, 0, 4);
+    -fx-border-width: 2;
+    -fx-background-insets: 0, 1, 2;
+    -fx-border-color: white;
     -fx-cursor: hand;
 }
 
 .dashboard-primary-button:hover {
-    -fx-background-color: linear-gradient(#C6A0F6, #B17CEC);
+    -fx-background-color: rgba(233, 179, 255, 0.52);
+     -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.25), 16, 0.30, 0, 4);
 }
 
 .dashboard-secondary-button {
-    -fx-background-color: linear-gradient(#FFECCD, #FFDEA4);
-    -fx-text-fill: #6B4B00;
+    -fx-background-color: rgba(255, 233, 153, 0.35);
+    -fx-text-fill:rgb(232, 196, 63);
     -fx-font-size: 15px;
     -fx-font-weight: 600;
     -fx-background-radius: 18;
+    -fx-background-insets: 0, 1, 2;
     -fx-border-radius: 18;
-    -fx-border-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(255, 201, 102, 0.3), 16, 0.30, 0, 3);
+    -fx-border-width: 2;
+    -fx-border-color:white;
     -fx-cursor: hand;
 }
 
 .dashboard-secondary-button:hover {
-    -fx-background-color: linear-gradient(#FFE4B3, #FFD46C);
+    -fx-background-color: rgba(255, 233, 153, 0.566);
+    -fx-effect: dropshadow(gaussian, rgba(255, 201, 102, 0.3), 16, 0.30, 0, 3);
 }
 
 .dashboard-tertiary-button {
-    -fx-background-color: white;
-    -fx-text-fill: #A855DD;
+    -fx-background-color: rgb(254, 242, 255);
+    -fx-text-fill: rgb(216, 156, 222);
     -fx-font-size: 15px;
     -fx-font-weight: 600;
 
@@ -1281,18 +1285,17 @@
     /* ▶ 중요! 내부/외부 레이어를 동일하게 맞춤 */
     -fx-background-insets: 0, 1, 2;
 
-    -fx-border-color: #E8DFF5;
+    -fx-border-color: white;
     -fx-border-width: 2;
 
     -fx-cursor: hand;
 
     /* 외곽 퍼짐을 줄여서 레이어 튀어나오는걸 방지 */
-    -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.10), 10, 0.2, 0, 2);
 }
 
 .dashboard-tertiary-button:hover {
-    -fx-background-color: #F5F0FB;
-    -fx-border-color: #A855DD;
+   -fx-background-color: rgb(250, 225, 253);
+   -fx-effect: dropshadow(gaussian, rgba(235, 154, 249, 0.25), 16, 0.30, 0, 4);
 }
 
 /* ---------------------------------
@@ -1426,7 +1429,7 @@
     -fx-max-height: 48;
 
     -fx-padding: 8 14;        /* 패딩 줄여서 모서리와 글자 간격 통일 */
-    -fx-background-color: #F8F5FF;
+    -fx-background-color: #ffffff;
     -fx-background-radius: 14;
 
     -fx-border-color: #D3C5F5;
