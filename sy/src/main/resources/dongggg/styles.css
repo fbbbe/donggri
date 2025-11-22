@@ -1319,15 +1319,17 @@
 .timer-box {
     -fx-background-color: white;
     -fx-padding: 8 14;
-    -fx-border-radius: 12;
+    -fx-border-radius: 10;
     -fx-background-radius: 12;
-    -fx-border-color: #E8DFF5;
+    -fx-background-inset: 0,0,0;
+    -fx-border-color:  #FFE999;
+    -fx-border-width:2;
 }
 
 .timer-text {
     -fx-font-weight: bold;
     -fx-font-size: 25px;
-    -fx-text-fill: #A855DD;
+    -fx-text-fill:  #FFE999;
 }
 
 .mascot-icon {
@@ -1356,7 +1358,7 @@
 }
 
 .concept-box {
-    -fx-background-color: #F5F0FB;
+    -fx-background-color: white;
     -fx-padding: 20;
     -fx-border-radius: 14;
     -fx-background-radius: 14;
@@ -1473,19 +1475,20 @@
 }
 
 .quiz-back-button {
-    -fx-background-color:#FFE999;
-    -fx-text-fill: #A855DD;
+    -fx-background-color:white;
+    -fx-text-fill: #FFE999;;
     -fx-font-size: 25px;
     -fx-font-weight: 600;
     -fx-background-radius: 18;
-    -fx-border-radius: 18;
-    -fx-border-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(255, 201, 102, 0.4), 16, 0.35, 0, 3);
+    -fx-border-radius: 13;
+    -fx-backgorund-inset: 0,0,0;
+    -fx-border-width:2;
+    -fx-border-color: #FFE999;
     -fx-cursor: hand;
 }
 
 .quiz-back-button:hover {
-    -fx-background-color: linear-gradient(#FFD966, #FFC640);
+    -fx-effect: dropshadow(gaussian, rgba(248, 236, 186, 0.576), 16, 0.35, 0, 3);
 }
 
 /* 📌 가운데 카드 */

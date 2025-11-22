@@ -30,7 +30,7 @@
 
             <!-- 타이머 + 마스코트 -->
             <HBox spacing="10" alignment="CENTER">
-                <HBox spacing="5" alignment="CENTER" styleClass="timer-box">
+                <HBox spacing="10" maxHeight="40" maxWidth="150"  minWidth="150" alignment="CENTER" styleClass="timer-box">
                     <Label text="⏱" styleClass="timer-text"/>
                     <Label fx:id="timerLabel" text="00:00" styleClass="timer-text"/>
                 </HBox>
