@@ -29,7 +29,7 @@
             <StackPane prefWidth="96" prefHeight="96" styleClass="folder-create-icon">
                 <SVGPath
                         content="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
-                        stroke="white"
+                        stroke="#F4B400"
                         fill="transparent"
                         strokeWidth="2"
                         style="-fx-scale-x:1.8; -fx-scale-y:1.8;"/>
@@ -52,7 +52,7 @@
                 <Button text="생성하기"
                     onAction="#onCreate"
                     styleClass="button-primary-wide"
-                    style="-fx-text-fill: white;" />
+ />
 
             </HBox>
         </VBox>

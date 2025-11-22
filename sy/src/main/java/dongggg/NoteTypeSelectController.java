@@ -33,9 +33,9 @@ public class NoteTypeSelectController {
 
             // 현재 화면(Stage) 기준으로 Scene 재사용
             Stage stage = (Stage) normalButton.getScene().getWindow();
-            Scene scene = stage.getScene();   // 기존 Scene 그대로
+            Scene scene = stage.getScene(); // 기존 Scene 그대로
 
-            scene.setRoot(root);              // root만 교체
+            scene.setRoot(root); // root만 교체
             scene.getStylesheets().clear();
             scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
@@ -59,6 +59,6 @@ public class NoteTypeSelectController {
     /** 🔥 뒤로가기 → 대시보드 */
     @FXML
     private void onBack() {
-        switchTo("dashboard-view.fxml");
+        switchTo("main-view.fxml");
     }
 }

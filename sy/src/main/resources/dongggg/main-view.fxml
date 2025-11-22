@@ -99,14 +99,14 @@
     <center>
         <ScrollPane fitToWidth="true"
                     hbarPolicy="NEVER"
-                    styleClass="transparent-scroll-pane,main-scroll-pane">
+                    styleClass="transparent-scroll-pane">
             <content>
                 <HBox alignment="TOP_CENTER">
                     <children>
                         <VBox spacing="28" prefWidth="960" maxWidth="960"
                               styleClass="main-content">
                             <padding>
-                                <Insets top="16" right="20" bottom="80" left="20"/>
+                                <Insets top="16" right="0" bottom="80" left="0"/>
                             </padding>
                             <children>
 
@@ -141,8 +141,21 @@
                                         <HBox spacing="8" alignment="CENTER_LEFT">
                                             <StackPane prefWidth="24" prefHeight="24" alignment="CENTER">
                                                 <SVGPath
-                                                    content="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z
-                                                            M12 6v6l4 2"
+                                                    content="M21 9
+                                                            a2.4 2.4 0 0 0 -0.706 -1.706
+                                                            l-3.588 -3.588
+                                                            A2.4 2.4 0 0 0 15 3
+                                                            H5
+                                                            a2 2 0 0 0 -2 2
+                                                            v14
+                                                            a2 2 0 0 0 2 2
+                                                            h14
+                                                            a2 2 0 0 0 2 -2
+                                                            z
+                                                            M15 3
+                                                            v5
+                                                            a1 1 0 0 0 1 1
+                                                            h5"
                                                     stroke="#A855DD"
                                                     fill="transparent"
                                                     strokeWidth="1.8"
