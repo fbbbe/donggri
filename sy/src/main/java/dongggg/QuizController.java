@@ -98,10 +98,13 @@ public class QuizController {
 
     // 🔥 타이머 표시 업데이트
     private void updateTimerLabel() {
-        int minutes = elapsedTime / 60;
-        int seconds = elapsedTime % 60;
-        timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
-    }
+    int minutes = elapsedTime / 60;
+    int seconds = elapsedTime % 60;
+    
+    timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
+    timerLabel.setStyle("-fx-font-size: 26px; -fx-font-weight: bold;");
+}
+
 
     // 🔥 타이머 정지
     private void stopTimer() {
