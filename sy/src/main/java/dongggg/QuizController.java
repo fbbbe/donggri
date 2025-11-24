@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ProgressBar;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -25,6 +26,9 @@ public class QuizController {
     @FXML private Label conceptLabel;
     @FXML private TextArea answerArea;
     @FXML private Label progressLabel;
+    @FXML private Label progressTopLabel;
+    @FXML private Label progressPercentLabel;
+    @FXML private ProgressBar questionProgressBar;
     @FXML private Label timerLabel;   // ⬅️ 타이머 표시 Label (FXML에 있어야 함!)
     @FXML private ImageView quizMascotImage;
 
@@ -81,7 +85,24 @@ public class QuizController {
     }
 
     private void updateProgress() {
-        progressLabel.setText((currentIndex + 1) + " / " + quizList.size() + " 문제");
+        int total = quizList.size();
+        int current = currentIndex + 1;
+        double ratio = total == 0 ? 0 : (double) current / total;
+
+        String text = current + " / " + total + " 문제";
+        if (progressLabel != null) {
+            progressLabel.setText(text);
+        }
+        if (progressTopLabel != null) {
+            progressTopLabel.setText("문제 " + current + " / " + total);
+        }
+        if (progressPercentLabel != null) {
+            int percent = (int) Math.round(ratio * 100);
+            progressPercentLabel.setText(percent + "%");
+        }
+        if (questionProgressBar != null) {
+            questionProgressBar.setProgress(ratio);
+        }
     }
 
     // 🔥 타이머 시작 함수

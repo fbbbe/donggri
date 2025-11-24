@@ -18,17 +18,34 @@ import dongggg.DonggriRepository;
 
 public class QuizResultController {
 
-    @FXML private Label scorePercentLabel;
-    @FXML private Label scoreSummaryLabel;
-    @FXML private ProgressBar scoreBar;
+    @FXML
+    private Label scorePercentLabel;
+    @FXML
+    private Label scoreSummaryLabel;
+    @FXML
+    private ProgressBar scoreBar;
 
-    @FXML private VBox resultListBox;
+    @FXML
+    private VBox resultListBox;
 
     private Scene previousScene;
     private List<ConceptPair> quizListRef;
     private List<Boolean> answerStateList;
     private final QuizService quizService = new QuizServiceImpl();
     private boolean resultsPersisted = false;
+
+    @FXML
+    private void initialize() {
+        // ⚡ 퀴즈 결과 화면에서도 전역 styles.css가 항상 적용되도록 보장
+        scorePercentLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                String css = App.class.getResource("styles.css").toExternalForm();
+                if (!newScene.getStylesheets().contains(css)) {
+                    newScene.getStylesheets().add(css);
+                }
+            }
+        });
+    }
 
     public void showResult(List<ConceptPair> quizList, List<String> userAnswers) {
 
@@ -49,26 +66,24 @@ public class QuizResultController {
             answerStateList.set(i, isCorrect);
 
             resultListBox.getChildren().add(
-                    createResultCard(pair.getTerm(), correct, user, isCorrect, i)
-            );
+                    createResultCard(pair.getTerm(), correct, user, isCorrect, i));
         }
 
         updateTotalScoreUI();
     }
 
     private VBox createResultCard(String concept, String correct, String user,
-                                  boolean isCorrect, int index) {
+            boolean isCorrect, int index) {
 
         VBox card = new VBox(12);
         card.setStyle(
                 "-fx-background-color: white;" +
-                "-fx-padding: 22;" +
-                "-fx-background-radius: 22;" +
-                "-fx-border-color: #e8dff5;" +
-                "-fx-border-radius: 22;" +
-                "-fx-border-width: 2;" +
-                "-fx-effect: dropshadow(gaussian, rgba(168,85,221,0.10), 20, 0.2, 0, 4);"
-        );
+                        "-fx-padding: 22;" +
+                        "-fx-background-radius: 22;" +
+                        "-fx-border-color: #e8dff5;" +
+                        "-fx-border-radius: 22;" +
+                        "-fx-border-width: 2;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(168,85,221,0.10), 20, 0.2, 0, 4);");
 
         Label conceptLabel = new Label("개념: " + concept);
         conceptLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #7c3aed;");
@@ -79,11 +94,10 @@ public class QuizResultController {
         VBox userBox = new VBox(4);
         userBox.setStyle(
                 "-fx-background-color: #f6f1ff;" +
-                "-fx-padding: 12;" +
-                "-fx-background-radius: 14;" +
-                "-fx-border-color: #e8dff5;" +
-                "-fx-border-radius: 14;"
-        );
+                        "-fx-padding: 12;" +
+                        "-fx-background-radius: 14;" +
+                        "-fx-border-color: #e8dff5;" +
+                        "-fx-border-radius: 14;");
 
         Label userTitle = new Label("당신의 답변");
         Label userValue = new Label(user.isEmpty() ? "(답변 없음)" : user);
@@ -151,7 +165,9 @@ public class QuizResultController {
     private void updateTotalScoreUI() {
         int total = answerStateList.size();
         int correctCount = 0;
-        for (boolean b : answerStateList) if (b) correctCount++;
+        for (boolean b : answerStateList)
+            if (b)
+                correctCount++;
 
         int scorePercent = (int) Math.round((correctCount * 100.0) / total);
 
@@ -161,11 +177,13 @@ public class QuizResultController {
     }
 
     private void persistResults(List<ConceptPair> quizList) {
-        if (resultsPersisted || quizList == null || quizList.isEmpty()) return;
+        if (resultsPersisted || quizList == null || quizList.isEmpty())
+            return;
 
         int correctCount = 0;
         for (Boolean b : answerStateList) {
-            if (Boolean.TRUE.equals(b)) correctCount++;
+            if (Boolean.TRUE.equals(b))
+                correctCount++;
         }
         int total = answerStateList.size();
         int scorePercent = total == 0 ? 0 : (int) Math.round(correctCount * 100.0 / total);

@@ -50,6 +50,24 @@
                 <Insets top="20" left="20" right="20" bottom="20"/>
             </padding>
 
+            <!-- 진행 상태 표시 카드 -->
+            <VBox spacing="10" styleClass="quiz-progress-card" prefWidth="Infinity" maxWidth="Infinity">
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="progressTopLabel"
+                           text="문제 0 / 0"
+                           styleClass="quiz-progress-title"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="progressPercentLabel"
+                           text="0%"
+                           styleClass="quiz-progress-percent"/>
+                </HBox>
+                <ProgressBar fx:id="questionProgressBar"
+                             prefHeight="12"
+                             maxWidth="Infinity"
+                             progress="0"
+                             styleClass="quiz-progress-bar"/>
+            </VBox>
+
             <!-- 문제 카드 -->
             <VBox spacing="15" styleClass="question-card">
 
@@ -83,7 +101,7 @@
                 <Insets top="10" left="20" right="20" bottom="20"/>
             </padding>
 
-            <Button text="다음 문제" onAction="#nextQuestion" styleClass="next-button"/>
+            <Button text="다음 문제" onAction="#nextQuestion" styleClass="go-dash"/>
 
             <Label fx:id="progressLabel" alignment="CENTER" />
         </VBox>

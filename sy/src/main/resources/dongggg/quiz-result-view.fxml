@@ -4,16 +4,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.control.*?>
 
-
+<!--전체 배경-->
 <VBox xmlns="http://javafx.com/javafx/22"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="dongggg.QuizResultController"
       spacing="20"
-      style="-fx-background-color: linear-gradient(to bottom right, #f8f7ff, #f5ecff); -fx-padding: 24;">
+      style="-fx-background-color:F8F7FF; -fx-padding: 24;">
 
-    <HBox spacing="10">
+      <!--상단 텍스트 부분-->
+    <HBox spacing="5">
         <Label text="채점"
-               style="-fx-font-size: 32px; -fx-font-weight: 700; -fx-text-fill: #a855dd;" />
+               style="-fx-font-size: 40px; -fx-font-weight: 700; -fx-text-fill: #a855dd;" />
         <Pane HBox.hgrow="ALWAYS"/>
         <Button text="←"
                 onAction="#goBack"
@@ -28,7 +29,8 @@
     <Label text="정답과 비교하여 채점하세요"
            style="-fx-text-fill: #d9b5ff; -fx-font-size: 14px;" />
 
-    <VBox spacing="10"
+<!--최종 점수 박스 부분-->
+    <VBox spacing="10" 
           style="-fx-background-color: white;
                  -fx-background-radius: 24;
                  -fx-border-color: #e8dff5;
@@ -54,36 +56,22 @@
                      style="-fx-accent: #a855dd; -fx-background-color: #f5f0fb;" />
     </VBox>
 
+<!--하단에 자가채점 부분-->
     <ScrollPane fitToWidth="true"
-                style="-fx-background-color: transparent;">
+                style="-fx-background-color: #F8F7FF;">
         <VBox fx:id="resultListBox"
               spacing="18"
-              style="-fx-padding: 10;">
+              style="-fx-padding: 10; -fx-background-color: #F8F7FF;">
         </VBox>
     </ScrollPane>
 
-    <HBox spacing="10">
-        <Button text="대시보드로"
-                onAction="#goDashboard"
-                style="-fx-background-color: white;
-                       -fx-text-fill: #a855dd;
-                       -fx-border-color: #e8dff5;
-                       -fx-border-radius: 16;
-                       -fx-background-radius: 16;
-                       -fx-font-size: 15px;
-                       -fx-font-weight: 600;
-                       -fx-cursor: hand;" />
+<!--맨 하단 버튼 두 개-->
+    <HBox spacing="5">
 
         <Button text="완료"
+                styleClass="go-dash"
                 onAction="#goDashboard"
-                HBox.hgrow="ALWAYS"
-                style="-fx-background-color: linear-gradient(#a855dd, #9333cc);
-                       -fx-text-fill: white;
-                       -fx-font-size: 15px;
-                       -fx-font-weight: 600;
-                       -fx-background-radius: 16;
-                       -fx-border-radius: 16;
-                       -fx-cursor: hand;" />
+                HBox.hgrow="ALWAYS"/>
     </HBox>
 
 </VBox>

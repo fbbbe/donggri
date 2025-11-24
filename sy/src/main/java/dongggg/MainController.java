@@ -111,7 +111,6 @@ public class MainController {
         }
     }
 
-
     /**
      * 최근 노트 목록을 DB에서 읽어서 화면에 뿌려주는 메서드.
      */
@@ -266,7 +265,8 @@ public class MainController {
 
     private HBox buildDeleteRow() {
         SVGPath trash = new SVGPath();
-        trash.setContent("M3 6h18 M8 6v14a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6 M10 6V4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2 M12 10v6 M16 10v6 M8 6h8");
+        trash.setContent(
+                "M3 6h18 M8 6v14a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6 M10 6V4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2 M12 10v6 M16 10v6 M8 6h8");
         trash.setStroke(Color.web("#9CA3AF"));
         trash.setFill(Color.TRANSPARENT);
         trash.setStrokeWidth(1.8);
@@ -290,7 +290,8 @@ public class MainController {
         row.getStyleClass().add("note-folder-item");
 
         SVGPath icon = new SVGPath();
-        icon.setContent("M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z");
+        icon.setContent(
+                "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z");
         icon.setStroke(Color.web("#F4B400"));
         icon.setFill(Color.TRANSPARENT);
         icon.setStrokeWidth(1.6);
@@ -381,7 +382,8 @@ public class MainController {
     }
 
     private void reselectCurrentFolder() {
-        if (folderRow == null || folderRow.getChildren().isEmpty()) return;
+        if (folderRow == null || folderRow.getChildren().isEmpty())
+            return;
 
         Region target = null;
         String title = currentFolderName;
@@ -487,7 +489,8 @@ public class MainController {
     }
 
     private void updateAvatarImage() {
-        if (avatarImageView == null) return;
+        if (avatarImageView == null)
+            return;
         avatarImageView.setImage(MascotProvider.loadForLevel(DonggriRepository.getLevelInfo().getCurrentLevel()));
     }
 

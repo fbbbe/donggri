@@ -28,7 +28,7 @@
             
             <!-- 타이틀 영역 -->
             <VBox alignment="CENTER" spacing="8">
-                <Label text="시험 보러 가볼까?" styleClass="dashboard-title"/>
+                <Label text="시험 보러 갈까요?" styleClass="dashboard-title"/>
                 <Label text="동그리와 함께 실력을 확인해보세요!" styleClass="dashboard-subtitle"/>
             </VBox>
 

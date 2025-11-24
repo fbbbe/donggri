@@ -2,18 +2,18 @@
 /* =========================================================
  * Donggri palette synced with 메모 앱 디자인2
  * ---------------------------------------------------------
- * background:        #F8F7FF
- * text-primary:      #3B275B
- * purple-primary:    #A855DD
- * purple-hover:      #9333CC
- * purple-muted:      #D9B5FF
- * border:            #E8DFF5
- * surface:           #FFFFFF
- * lavender-surface:  #F5F0FB
- * yellow-primary:    #FFE999
- * yellow-hover:      #FFD966
- * accent-orange:     #FFB547
- * placeholder:       #C4B5D8
+ * background: #F8F7FF
+ * text-primary: #3B275B
+ * purple-primary: #A855DD
+ * purple-hover: #9333CC
+ * purple-muted: #D9B5FF
+ * border: #E8DFF5
+ * surface: #FFFFFF
+ * lavender-surface: #F5F0FB
+ * yellow-primary: #FFE999
+ * yellow-hover: #FFD966
+ * accent-orange: #FFB547
+ * placeholder: #C4B5D8
  * ========================================================= */
 
 .root-pane {
@@ -104,19 +104,26 @@
 }
 
 .button-primary {
-    -fx-background-color: linear-gradient(#FFE999, #FFD966);
-    -fx-text-fill: white;
-    -fx-border-color: transparent;
-    -fx-border-radius: 18;
+    -fx-background-color:white;
+    -fx-text-fill:#FFC640;
+    -fx-border-color: #FFE999;
+    -fx-border-width:2;
+    -fx-background-insets: 0, 0, 0;
+    -fx-border-radius: 13;
     -fx-background-radius: 18;
     -fx-padding: 10 28;
     -fx-font-weight: 600;
-    -fx-effect: dropshadow(gaussian, rgba(255, 201, 102, 0.45), 15, 0.35, 0, 4);
     -fx-cursor: hand;
 }
 
 .button-primary:hover {
+    -fx-background-color: #fff5cf6e;
+    -fx-background-radius: 10;
+    -fx-border-color: #FFC640;
+    -fx-border-radius: 10;
+    -fx-border-width: 1.4;
 }
+
 
 .button-primary:disabled {
     -fx-opacity: 0.35;
@@ -179,7 +186,7 @@
 
 .profile-name,
 .main-profile-name {
-    -fx-font-size: 18px;
+    -fx-font-size: 23px;
     -fx-font-weight: bold;
     -fx-text-fill: #A855DD;
 }
@@ -508,6 +515,7 @@
 
 .quiz-mode-card.yellow {
     -fx-border-color: #FFE5A0;
+    -fx-effect: dropshadow(gaussian, rgba(248, 246, 162, 0.18), 24, 0.32, 0, 8);
 }
 
 .quiz-mode-icon-surface {
@@ -1231,6 +1239,23 @@
     -fx-text-fill: #A855DD;
 }
 
+.b{
+    -fx-text-fill:rgb(169, 85, 221);
+}
+
+.y{
+    -fx-text-fill: rgb(188, 108, 220);
+}
+.p{
+    -fx-text-fill: rgb(232, 196, 63);
+}
+
+.dashboard-stat-value {
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #A855DD;
+}
+
 .dashboard-stat-label {
     -fx-font-size: 13px;
     -fx-text-fill: #D9B5FF;
@@ -1295,7 +1320,7 @@
 
 .dashboard-tertiary-button:hover {
    -fx-background-color: rgb(250, 225, 253);
-   -fx-effect: dropshadow(gaussian, rgba(235, 154, 249, 0.25), 16, 0.30, 0, 4);
+   -fx-effect: dropshadow(gaussian, rgba(244, 183, 255, 0.25), 16, 0.30, 0, 4);
 }
 
 /* ---------------------------------
@@ -1306,13 +1331,13 @@
 }
 
 .quiz-title {
-    -fx-font-size: 26px;
+    -fx-font-size: 45px;
     -fx-font-weight: bold;
     -fx-text-fill: #A855DD;
 }
 
 .quiz-subtitle {
-    -fx-font-size: 14px;
+    -fx-font-size: 20px;
     -fx-text-fill: #D9B5FF;
 }
 
@@ -1334,6 +1359,44 @@
 
 .mascot-icon {
     -fx-font-size: 26px;
+}
+
+.quiz-progress-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #E8DFF5;
+    -fx-border-width: 2;
+    -fx-padding: 14 16;
+    -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.12), 18, 0.25, 0, 3);
+}
+
+.quiz-progress-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #A855DD;
+}
+
+.quiz-progress-percent {
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #C084FC;
+}
+
+.quiz-progress-bar {
+    -fx-background-radius: 999;
+    -fx-padding: 3;
+}
+
+.quiz-progress-bar > .track {
+    -fx-background-color: #F5F0FB;
+    -fx-background-insets: 0;
+    -fx-background-radius: 999;
+}
+
+.quiz-progress-bar > .bar {
+    -fx-background-color: linear-gradient(#B46AF0, #A855DD);
+    -fx-background-radius: 999;
 }
 
 .quiz-progress > .track {
@@ -1534,8 +1597,8 @@
 
 /* 입력창 */
 .folder-create-input {
-    -fx-background-color: #F8F5FF;
-    -fx-border-color: #D3C5F5;
+    -fx-background-color: #fffefab7;
+    -fx-border-color: #fff3ce;
     -fx-border-width: 2;
     -fx-background-radius: 14;
     -fx-border-radius: 14;
@@ -1546,17 +1609,6 @@
     -fx-prompt-text-fill: #C4B5D8;
 }
 
-/* 왼쪽 취소 버튼 */
-.button-outlined-wide {
-    -fx-background-color: white;
-    -fx-text-fill: #A855DD;
-    -fx-background-radius: 14;
-    -fx-border-radius: 14;
-    -fx-border-color: #E8DFF5;
-    -fx-border-width: 2;
-    -fx-padding: 12 32;
-    -fx-cursor: hand;
-}
 
 .button-outlined-wide:hover {
     -fx-background-color: #F5F0FB;
@@ -1567,4 +1619,23 @@
 .folder-create-tip {
     -fx-font-size: 12px;
     -fx-text-fill: #C4B5D8;
+}
+
+.go-dash {
+    -fx-background-color: white;
+    -fx-text-fill: #FFB547;
+    -fx-border-color: #e8dff5;
+    -fx-border-radius: 20;
+    -fx-background-radius: 25;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-backgorund-insets: 0,0,1;
+    -fx-cursor: hand;
+    -fx-border-width:2;
+    -fx-padding: 10 28;
+}
+
+.go-dash:hover{
+    -fx-border-color: #FFB547;
+    -fx-border-width:2;
 }
