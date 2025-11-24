@@ -9,6 +9,18 @@ import java.util.List;
 
 public class DonggriRepository {
 
+    private static int lastCorrect = 0;
+    private static int lastTotal = 0;
+    public static void setLastExamResult(int correct, int total) {
+        lastCorrect = correct;
+        lastTotal = total;
+    }
+    
+    public static int getLastExamAccuracy() {
+        if (lastTotal == 0) return 0;
+        return (int) Math.round((lastCorrect * 100.0) / lastTotal);
+    }
+
     public static DonggriStatus getStatus() {
         String sql = "SELECT cumulative_score, cumulative_correct, exam_count FROM donggri_status WHERE id = 1";
 
@@ -214,19 +226,27 @@ public class DonggriRepository {
 
 
     public static int getAccuracyPercent() {
-        String sql = "SELECT cumulative_score, exam_count FROM donggri_status WHERE id = 1";
+
+        // 🔥 최근 시험 결과가 있으면 그걸 우선 표시
+        if (lastTotal > 0) {
+            return getLastExamAccuracy();
+        }
+
+        // 🔥 없으면 누적값 기반 표시
+        String sql = "SELECT cumulative_correct, cumulative_score FROM donggri_status WHERE id = 1";
 
         try (Connection conn = Database.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.next()) {
-                int totalScore = rs.getInt("cumulative_score");
-                int examCount = rs.getInt("exam_count");
+                int correct = rs.getInt("cumulative_correct");
+                int total   = rs.getInt("cumulative_score");
 
-                if (examCount == 0) return 0;
+                if (total == 0) return 0;
 
-                return totalScore / examCount;  // 평균 점수 = 정답률
+                double percent = (correct / (double) total) * 100.0;
+                return (int) Math.round(percent);
             }
 
         } catch (SQLException e) {
@@ -236,6 +256,8 @@ public class DonggriRepository {
 
         return 0;
     }
+
+
 
 
 

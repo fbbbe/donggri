@@ -158,7 +158,6 @@ public class QuizController {
         loadQuestion(currentIndex);
     }
 
-
     private void goToResult() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz-result-view.fxml"));
@@ -167,12 +166,18 @@ public class QuizController {
             QuizResultController controller = loader.getController();
             controller.showResult(quizList, userAnswers);
 
-            // 🔥 추가: 이전 화면 저장하기
+            // 🔥 정확한 정답 계산
+            int correctCount = controller.getCorrectCount();
+            int totalQuestions = quizList.size();
+
+            // 🔥🔥🔥 추가: 최근 시험 결과 저장(정답률 계산용)
+            DonggriRepository.setLastExamResult(correctCount, totalQuestions);
+
+            // 🔥 기존 기능 유지: 이전 화면 저장
             controller.setPreviousScene(conceptLabel.getScene());
 
             Stage stage = (Stage) conceptLabel.getScene().getWindow();
             stage.setScene(new Scene(root, 1200, 720));
-
 
         } catch (Exception e) {
             e.printStackTrace();
