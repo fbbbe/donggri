@@ -2,9 +2,11 @@ package dongggg;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -23,6 +25,9 @@ import java.util.List;
 public class ConceptNoteController {
 
     @FXML
+    private BorderPane root;
+
+    @FXML
     private TextField titleField;
 
     @FXML
@@ -37,6 +42,9 @@ public class ConceptNoteController {
     private Note note; // 필요하면 기존 노트 편집용
     private boolean initialized = false;
 
+    @FXML
+    private Button cancelb;
+
     // 현재 화면에 존재하는 개념/설명 입력 행들을 관리
     private final List<ConceptRow> rows = new ArrayList<>();
 
@@ -44,17 +52,22 @@ public class ConceptNoteController {
         this.note = note;
         if (initialized) {
             loadExistingNote();
+            deferBlurInputs();
         }
     }
 
     @FXML
     public void initialize() {
+        if (cancelb != null) {
+            HoverEffects.installPurpleHover(cancelb);
+        }
         // 화면 열릴 때 최소 1개의 입력 행을 만들어 둔다.
         addEmptyRow();
         initialized = true;
         if (note != null) {
             loadExistingNote();
         }
+        deferBlurInputs();
     }
 
     /** 하단 + 버튼 클릭 시: 새 개념/설명 행 추가 */
@@ -260,5 +273,25 @@ public class ConceptNoteController {
             this.term = term;
             this.explanation = explanation;
         }
+    }
+
+    private void deferBlurInputs() {
+        Platform.runLater(() -> {
+            if (root != null) {
+                root.setFocusTraversable(true);
+                root.requestFocus();
+            }
+            if (titleField != null) {
+                titleField.deselect();
+            }
+            for (ConceptRow row : rows) {
+                if (row.termArea != null) {
+                    row.termArea.deselect();
+                }
+                if (row.explanationArea != null) {
+                    row.explanationArea.deselect();
+                }
+            }
+        });
     }
 }

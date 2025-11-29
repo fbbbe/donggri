@@ -3,6 +3,7 @@ package dongggg;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -13,19 +14,30 @@ import javafx.scene.control.Button;
 
 public class QuizModeSelectController {
 
-    @FXML private Label totalCountLabel;
-    @FXML private Label totalTimeLabel;
-    @FXML private Slider worstCountSlider;
-    @FXML private Label worstCountValueLabel;
-    @FXML private Label worstSelectedCountLabel;
-    @FXML private Label worstTimeLabel;
-    @FXML private Button btn5;
-    @FXML private Button btn10;
-    @FXML private Button btn15;
-    @FXML private Button btn20;
-
-
-
+    @FXML
+    private Label totalCountLabel;
+    @FXML
+    private Label totalTimeLabel;
+    @FXML
+    private Slider worstCountSlider;
+    @FXML
+    private Label worstCountValueLabel;
+    @FXML
+    private Label worstSelectedCountLabel;
+    @FXML
+    private Label worstTimeLabel;
+    @FXML
+    private Button btn5;
+    @FXML
+    private Button btn10;
+    @FXML
+    private Button btn15;
+    @FXML
+    private Button btn20;
+    @FXML
+    private Button starta;
+    @FXML
+    private Button startb;
 
     private List<Note> selectedNotes = new ArrayList<>();
     private int totalQuestions = 0;
@@ -46,7 +58,7 @@ public class QuizModeSelectController {
     private void initialize() {
         worstCountSlider.valueProperty().addListener((obs, o, n) -> updateWorstCountDisplay());
         worstCountSlider.setMin(1);
-        worstCountSlider.setMax(1.1);   // 문제 1개일 때도 동그라미 보이게
+        worstCountSlider.setMax(1.1); // 문제 1개일 때도 동그라미 보이게
 
     }
 
@@ -63,8 +75,8 @@ public class QuizModeSelectController {
         if (max == 1) {
             worstCountSlider.setMax(1.1);
         } else {
-        worstCountSlider.setMax(max);
-}
+            worstCountSlider.setMax(max);
+        }
 
         worstCountSlider.setValue(defaultWorst);
 
@@ -82,10 +94,25 @@ public class QuizModeSelectController {
         return Math.max(1, (int) Math.round(questions * 1.5));
     }
 
-    @FXML private void onQuickSelect5()  { quickSelect(5, btn5); }
-    @FXML private void onQuickSelect10() { quickSelect(10, btn10); }
-    @FXML private void onQuickSelect15() { quickSelect(15, btn15); }
-    @FXML private void onQuickSelect20() { quickSelect(20, btn20); }
+    @FXML
+    private void onQuickSelect5() {
+        quickSelect(5, btn5);
+    }
+
+    @FXML
+    private void onQuickSelect10() {
+        quickSelect(10, btn10);
+    }
+
+    @FXML
+    private void onQuickSelect15() {
+        quickSelect(15, btn15);
+    }
+
+    @FXML
+    private void onQuickSelect20() {
+        quickSelect(20, btn20);
+    }
 
     private void quickSelect(int count, Button button) {
         int max = (int) worstCountSlider.getMax();
@@ -93,16 +120,17 @@ public class QuizModeSelectController {
         updateQuickSelectStyles(button);
     }
 
-
     @FXML
     private void onStartAll() {
-        if (totalQuestions <= 0) return;
+        if (totalQuestions <= 0)
+            return;
         startQuiz(QuizService.QuizMode.ALL, totalQuestions);
     }
 
     @FXML
     private void onStartWorst() {
-        if (totalQuestions <= 0) return;
+        if (totalQuestions <= 0)
+            return;
         int count = (int) worstCountSlider.getValue();
         startQuiz(QuizService.QuizMode.WORST, count);
     }
@@ -137,13 +165,15 @@ public class QuizModeSelectController {
     }
 
     private void updateQuickSelectStyles(Button activeButton) {
-        Button[] buttons = {btn5, btn10, btn15, btn20};
+        Button[] buttons = { btn5, btn10, btn15, btn20 };
 
         for (Button b : buttons) {
             b.getStyleClass().removeAll("quiz-pill-primary", "quiz-pill-outline");
 
-            if (b == activeButton) b.getStyleClass().add("quiz-pill-primary");
-            else b.getStyleClass().add("quiz-pill-outline");
+            if (b == activeButton)
+                b.getStyleClass().add("quiz-pill-primary");
+            else
+                b.getStyleClass().add("quiz-pill-outline");
         }
     }
 

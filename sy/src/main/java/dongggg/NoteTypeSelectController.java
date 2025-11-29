@@ -22,7 +22,13 @@ public class NoteTypeSelectController {
 
     @FXML
     public void initialize() {
-        // 필요하면 여기서 버튼 상태 초기화 가능
+        // 💜 노트 타입 선택 버튼 hover 효과 적용
+        if (normalButton != null) {
+            HoverEffects.installPurpleHover(normalButton);
+        }
+        if (conceptButton != null) {
+            HoverEffects.installYellowHover(conceptButton);
+        }
     }
 
     /** 🔥 공용 Scene 전환 메서드 — App.scene이 아니라 현재 Stage 기준으로 root만 변경 */

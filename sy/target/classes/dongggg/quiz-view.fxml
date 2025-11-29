@@ -101,7 +101,7 @@
                 <Insets top="10" left="20" right="20" bottom="20"/>
             </padding>
 
-            <Button text="다음 문제" onAction="#nextQuestion" styleClass="go-dash"/>
+            <Button fx:id="next" text="다음 문제" onAction="#nextQuestion" styleClass="go-dash"/>
 
             <Label fx:id="progressLabel" alignment="CENTER" />
         </VBox>

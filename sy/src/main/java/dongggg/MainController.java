@@ -483,7 +483,7 @@ public class MainController {
         App.showFolderCreateView();
     }
 
-    // 🔥🔥 동그리 클릭 또는 단축 버튼 클릭 시 대시보드 이동
+    // 동그리 클릭 또는 단축 버튼 클릭 시 대시보드 이동
     @FXML
     private void onOpenMascot() {
         App.showDashboardView();

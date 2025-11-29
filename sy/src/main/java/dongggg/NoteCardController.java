@@ -22,10 +22,14 @@ import dongggg.App;
 
 public class NoteCardController {
 
-    @FXML private Label titleLabel;
-    @FXML private Label dateLabel;
-    @FXML private CheckBox checkBox;
-    @FXML private Button moreButton;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Label dateLabel;
+    @FXML
+    private CheckBox checkBox;
+    @FXML
+    private Button moreButton;
 
     private Note note;
 
@@ -56,7 +60,8 @@ public class NoteCardController {
 
     @FXML
     private void onMore(MouseEvent event) {
-        if (note == null) return;
+        if (note == null)
+            return;
 
         ContextMenu menu = new ContextMenu();
         menu.getStyleClass().add("note-context-menu");
@@ -123,7 +128,15 @@ public class NoteCardController {
 
     private HBox buildDeleteRow() {
         SVGPath trash = new SVGPath();
-        trash.setContent("M3 6h18 M8 6v14a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6 M10 6V4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2 M12 10v6 M16 10v6 M8 6h8");
+        trash.setContent(
+                "M10 11 v6 " +                                     // 왼쪽 막대
+                "M14 11 v6 " +                                     // 오른쪽 막대
+                "M19 6 v14 a 2 2 0 0 1 -2 2 H7 " +                 // 오른쪽 위에서 시작해 아래로 + 둥근 모서리 + 아래 가로
+                "a 2 2 0 0 1 -2 -2 V6 " +                          // 왼쪽 아래 모서리 + 위로
+                "M3 6 h18 " +                                      // 상단 전체 가로선
+                "M8 6 V4 a 2 2 0 0 1 2 -2 h4 " +                   // 뚜껑 양쪽 기둥 + 둥근 상단
+                "a 2 2 0 0 1 2 2 v2"                               // 오른쪽 위 모서리 + 아래로
+        );
         trash.setStroke(Color.web("#9CA3AF"));
         trash.setFill(Color.TRANSPARENT);
         trash.setStrokeWidth(1.8);
@@ -147,7 +160,8 @@ public class NoteCardController {
         row.getStyleClass().add("note-folder-item");
 
         SVGPath icon = new SVGPath();
-        icon.setContent("M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z");
+        icon.setContent(
+                "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z");
         icon.setStroke(Color.web("#F4B400"));
         icon.setFill(Color.TRANSPARENT);
         icon.setStrokeWidth(1.6);

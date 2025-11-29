@@ -1210,10 +1210,6 @@
     
 }
 
-.dashboard-stat-card:hover {
-    -fx-effect: dropshadow(gaussian, rgba(168, 85, 221, 0.2), 22, 0.35, 0, 4);
-}
-
 .dashboard-stat-icon-circle {
     -fx-background-color: rgba(168, 85, 221, 0.12);
     -fx-background-radius: 16;
@@ -1625,7 +1621,7 @@
     -fx-background-color: white;
     -fx-text-fill: #FFB547;
     -fx-border-color: #e8dff5;
-    -fx-border-radius: 20;
+    -fx-border-radius: 23;
     -fx-background-radius: 25;
     -fx-font-size: 15px;
     -fx-font-weight: 600;

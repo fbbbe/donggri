@@ -68,7 +68,7 @@
 <!--맨 하단 버튼 두 개-->
     <HBox spacing="5">
 
-        <Button text="완료"
+        <Button fx:id="com" text="완료"
                 styleClass="go-dash"
                 onAction="#goDashboard"
                 HBox.hgrow="ALWAYS"/>

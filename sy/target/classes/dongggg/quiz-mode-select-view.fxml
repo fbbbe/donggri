@@ -72,7 +72,7 @@
                         </HBox>
                     </VBox>
 
-                    <Button text="시작하기"
+                    <Button fx:id="starta" text="시작하기"
                             styleClass="quiz-mode-start, purple"
                             onAction="#onStartAll"/>
                 </VBox>
@@ -136,7 +136,7 @@
                         </HBox>
                     </VBox>
 
-                    <Button text="시작하기"
+                    <Button fx:id="startb" text="시작하기"
                             styleClass="quiz-mode-start, yellow"
                             onAction="#onStartWorst"/>
                 </VBox>

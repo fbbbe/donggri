@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -14,15 +15,27 @@ import java.util.List;
 
 public class QuizStartController {
 
-    @FXML private VBox noteListBox;
-    @FXML private Label selectedCountLabel;
-    @FXML private Button startButton;
+    @FXML
+    private VBox noteListBox;
+    @FXML
+    private Label selectedCountLabel;
+    @FXML
+    private Button startButton;
+    @FXML
+    private Button cancel;
 
     private List<NoteCardController> cardControllers = new ArrayList<>();
     private final QuizService quizService = new QuizServiceImpl();
 
     @FXML
     public void initialize() {
+        if (startButton != null) {
+            HoverEffects.installYellowHover(startButton);
+        }
+
+        if (cancel != null) {
+            HoverEffects.installPurpleHover(cancel);
+        }
 
         List<Note> notes = NoteRepository.findByType("CONCEPT", 30);
 
@@ -46,6 +59,12 @@ public class QuizStartController {
                         .addListener((o, oldV, newV) -> updateSelectedCount());
 
                 cardControllers.add(controller);
+
+                // 💜 퀴즈 시작 화면의 노트 카드에도 보라 hover 효과 적용
+                if (card instanceof Region) {
+                    HoverEffects.installPurpleHover((Region) card);
+                }
+
                 noteListBox.getChildren().add(card);
 
             } catch (Exception e) {
@@ -85,7 +104,8 @@ public class QuizStartController {
                 .map(NoteCardController::getNote)
                 .toList();
 
-        if (selectedNotes.isEmpty()) return;
+        if (selectedNotes.isEmpty())
+            return;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz-mode-select-view.fxml"));

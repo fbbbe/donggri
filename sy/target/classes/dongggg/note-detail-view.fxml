@@ -75,7 +75,8 @@
                                 <Pane HBox.hgrow="ALWAYS"/>
 
                                 
-                                <Button text="취소"
+                                <Button fx:id="cancel"
+                                        text="취소"
                                         onAction="#onCancel"
                                         styleClass="pill-button, pill-button-outline"/>
 

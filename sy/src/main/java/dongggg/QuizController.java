@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,14 +24,24 @@ import dongggg.QuizService;
 
 public class QuizController {
 
-    @FXML private Label conceptLabel;
-    @FXML private TextArea answerArea;
-    @FXML private Label progressLabel;
-    @FXML private Label progressTopLabel;
-    @FXML private Label progressPercentLabel;
-    @FXML private ProgressBar questionProgressBar;
-    @FXML private Label timerLabel;   // ⬅️ 타이머 표시 Label (FXML에 있어야 함!)
-    @FXML private ImageView quizMascotImage;
+    @FXML
+    private Label conceptLabel;
+    @FXML
+    private TextArea answerArea;
+    @FXML
+    private Label progressLabel;
+    @FXML
+    private Label progressTopLabel;
+    @FXML
+    private Label progressPercentLabel;
+    @FXML
+    private ProgressBar questionProgressBar;
+    @FXML
+    private Label timerLabel; // ⬅️ 타이머 표시 Label (FXML에 있어야 함!)
+    @FXML
+    private ImageView quizMascotImage;
+    @FXML
+    private Button next;
 
     private final QuizService quizService = new QuizServiceImpl();
     private List<ConceptPair> quizList = new ArrayList<>();
@@ -45,7 +56,9 @@ public class QuizController {
     private Scene previousScene;
 
     public void initQuiz(List<Note> selectedNotes, QuizService.QuizMode mode, int limit) {
-
+        if (next != null) {
+            HoverEffects.installYellowHover(next);
+        }
         List<Integer> noteIds = new ArrayList<>();
         if (selectedNotes != null) {
             for (Note note : selectedNotes) {
@@ -108,11 +121,10 @@ public class QuizController {
     // 🔥 타이머 시작 함수
     private void startTimer() {
         timer = new Timeline(
-            new KeyFrame(Duration.seconds(1), e -> {
-                elapsedTime++;
-                updateTimerLabel();
-            })
-        );
+                new KeyFrame(Duration.seconds(1), e -> {
+                    elapsedTime++;
+                    updateTimerLabel();
+                }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }
@@ -126,7 +138,8 @@ public class QuizController {
 
     // 🔥 타이머 정지
     private void stopTimer() {
-        if (timer != null) timer.stop();
+        if (timer != null)
+            timer.stop();
     }
 
     @FXML
@@ -140,7 +153,7 @@ public class QuizController {
             alert.setHeaderText(null);
             alert.setContentText("다음 문제로 넘어가기 전에 답을 입력하세요!");
             alert.showAndWait();
-            return;   // ❌ 그대로 머물기
+            return; // ❌ 그대로 머물기
         }
 
         // 🔥 기존 기능 유지: 답변 저장
@@ -150,7 +163,7 @@ public class QuizController {
         currentIndex++;
 
         if (currentIndex >= quizList.size()) {
-            stopTimer();   // 🔥 기존 타이머 종료 유지
+            stopTimer(); // 🔥 기존 타이머 종료 유지
             goToResult();
             return;
         }
@@ -184,7 +197,6 @@ public class QuizController {
         }
     }
 
-
     public void setPreviousScene(Scene scene) {
         this.previousScene = scene;
     }
@@ -193,7 +205,7 @@ public class QuizController {
     @FXML
     private void goBack() {
         try {
-            stopTimer();  // 타이머 정지
+            stopTimer(); // 타이머 정지
 
             Stage stage = (Stage) conceptLabel.getScene().getWindow();
 
@@ -206,7 +218,5 @@ public class QuizController {
             e.printStackTrace();
         }
     }
-
-
 
 }

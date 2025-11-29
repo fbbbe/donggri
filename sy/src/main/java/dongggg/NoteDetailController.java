@@ -1,5 +1,6 @@
 package dongggg;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -38,11 +39,20 @@ public class NoteDetailController {
     private boolean isNew = true;
 
     @FXML
+    private Button cancel;
+
+    @FXML
     private void initialize() {
+
+        if (cancel != null) {
+            HoverEffects.installPurpleHover(cancel);
+        }
+
         if (note == null) {
             setNewNoteMode();
         }
         setupAutoGrow();
+        deferBlurInputs();
     }
 
     // 외부에서 편집할 노트를 주입
@@ -65,6 +75,7 @@ public class NoteDetailController {
             setNewNoteMode();
         }
         autoGrowContentArea();
+        deferBlurInputs();
     }
 
     @FXML
@@ -158,12 +169,28 @@ public class NoteDetailController {
     }
 
     private void autoGrowContentArea() {
-        if (contentArea == null) return;
+        if (contentArea == null)
+            return;
         String text = contentArea.getText();
         int lines = text == null || text.isEmpty() ? 1 : text.split("\n", -1).length;
         int rowCount = Math.max(6, Math.min(60, lines + 2));
         contentArea.setPrefRowCount(rowCount);
         contentArea.setMinHeight(Region.USE_PREF_SIZE);
         contentArea.setMaxHeight(Region.USE_COMPUTED_SIZE);
+    }
+
+    private void deferBlurInputs() {
+        Platform.runLater(() -> {
+            if (root != null) {
+                root.setFocusTraversable(true);
+                root.requestFocus();
+            }
+            if (titleField != null) {
+                titleField.deselect();
+            }
+            if (contentArea != null) {
+                contentArea.deselect();
+            }
+        });
     }
 }

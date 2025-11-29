@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +25,8 @@ public class QuizResultController {
     private Label scoreSummaryLabel;
     @FXML
     private ProgressBar scoreBar;
+    @FXML
+    private Button com;
 
     @FXML
     private VBox resultListBox;
@@ -36,6 +39,9 @@ public class QuizResultController {
 
     @FXML
     private void initialize() {
+        if (com != null) {
+            HoverEffects.installYellowHover(com);
+        }
         // ⚡ 퀴즈 결과 화면에서도 전역 styles.css가 항상 적용되도록 보장
         scorePercentLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
@@ -222,7 +228,6 @@ public class QuizResultController {
         App.showDashboardView();
     }
 
-
     public void setPreviousScene(Scene scene) {
         this.previousScene = scene;
     }
@@ -230,7 +235,8 @@ public class QuizResultController {
     public int getCorrectCount() {
         int correctCount = 0;
         for (boolean b : answerStateList) {
-            if (b) correctCount++;
+            if (b)
+                correctCount++;
         }
         return correctCount;
     }

@@ -48,12 +48,10 @@
             </VBox>
 
             <HBox spacing="14" alignment="CENTER" maxWidth="620">
-                <Button text="취소" onAction="#onBack" styleClass="button-outlined-wide"/>
-                <Button text="생성하기"
+                <Button fx:id="cancelButton" text="취소" onAction="#onBack" styleClass="button-outlined-wide"/>
+                <Button fx:id="createButton" text="생성하기"
                     onAction="#onCreate"
-                    styleClass="button-outlined-wide"
- />
-
+                    styleClass="button-outlined-wide"/>
             </HBox>
         </VBox>
     </center>
