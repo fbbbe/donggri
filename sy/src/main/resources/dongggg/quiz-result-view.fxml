@@ -14,7 +14,7 @@
       <!--상단 텍스트 부분-->
     <HBox spacing="5">
         <Label text="채점"
-               style="-fx-font-size: 40px; -fx-font-weight: 700; -fx-text-fill: #a855dd;" />
+               style="-fx-font-size: 35px; -fx-font-weight: 700; -fx-text-fill: #a855dd;" />
         <Pane HBox.hgrow="ALWAYS"/>
         <Button text="←"
                 onAction="#goBack"
@@ -35,20 +35,22 @@
                  -fx-background-radius: 24;
                  -fx-border-color: #e8dff5;
                  -fx-border-radius: 24;
+                 -fx-background-insets: 0,1,2;
                  -fx-border-width: 2;
                  -fx-padding: 28 32;
-                 -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.15), 22, 0.2, 0, 6);">
+                 -fx-effect: dropshadow(gaussian, rgba(168,85,221,0.12), 16, 0.2, 0, 4),
+                 innershadow(gaussian, rgba(168,85,221,0.12), 10, 0.25, 0, 0);">
 
         <Label text="최종 점수"
                style="-fx-text-fill: #d9b5ff; -fx-font-size: 14px;" />
 
         <Label fx:id="scorePercentLabel"
                text="0%"
-               style="-fx-font-size: 48px; -fx-font-weight: 700; -fx-text-fill: #a855dd;" />
+               style="-fx-font-size: 35px; -fx-font-weight: 700; -fx-text-fill: #a855dd;" />
 
         <Label fx:id="scoreSummaryLabel"
                text="0 / 5개 정답"
-               style="-fx-font-size: 16px; -fx-text-fill: #3b275b; -fx-font-weight: 500;" />
+               style="-fx-font-size: 14px; -fx-text-fill: #3b275b; -fx-font-weight: 500;" />
 
         <ProgressBar fx:id="scoreBar"
                      prefHeight="12"
@@ -59,9 +61,11 @@
 <!--하단에 자가채점 부분-->
     <ScrollPane fitToWidth="true"
                 style="-fx-background-color: #F8F7FF;">
+        
         <VBox fx:id="resultListBox"
               spacing="18"
-              style="-fx-padding: 10; -fx-background-color: #F8F7FF;">
+              style="-fx-padding: 10; 
+              -fx-background-color: #F8F7FF;">
         </VBox>
     </ScrollPane>
 

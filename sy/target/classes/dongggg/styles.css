@@ -670,6 +670,7 @@
     -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.24), 14, 0.35, 0, 3);
 }
 
+
 .note-check:selected > .box > .mark {
     -fx-background-color: white;
 }
@@ -1327,13 +1328,13 @@
 }
 
 .quiz-title {
-    -fx-font-size: 45px;
+    -fx-font-size: 35px;
     -fx-font-weight: bold;
     -fx-text-fill: #A855DD;
 }
 
 .quiz-subtitle {
-    -fx-font-size: 20px;
+    -fx-font-size: 18px;
     -fx-text-fill: #D9B5FF;
 }
 
