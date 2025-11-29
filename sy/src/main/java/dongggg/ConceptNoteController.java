@@ -336,16 +336,17 @@ public class ConceptNoteController {
         Runnable resize = () -> resizeRowToContent(row);
         row.termArea.textProperty().addListener((obs, o, n) -> resize.run());
         row.explanationArea.textProperty().addListener((obs, o, n) -> resize.run());
-        row.termArea.widthProperty().addListener((obs, o, n) -> resize.run());
-        row.explanationArea.widthProperty().addListener((obs, o, n) -> resize.run());
 
-        // 초기 렌더링 직후 폭이 계산된 상태에서 한번 더 맞춤
-        Platform.runLater(resize);
+        // 초기 렌더링 직후 폭을 기록해 고정된 높이를 계산
+        Platform.runLater(() -> {
+            captureBaseWrapWidths(row);
+            resize.run();
+        });
     }
 
     private void resizeRowToContent(ConceptRow row) {
-        double termHeight = computeTextAreaHeight(row.termArea);
-        double explanationHeight = computeTextAreaHeight(row.explanationArea);
+        double termHeight = computeTextAreaHeight(row.termArea, row.baseWrapWidthTerm);
+        double explanationHeight = computeTextAreaHeight(row.explanationArea, row.baseWrapWidthExplanation);
         double targetHeight = Math.max(termHeight, explanationHeight);
 
         applyHeight(row.termArea, targetHeight);
@@ -358,18 +359,27 @@ public class ConceptNoteController {
         area.setMaxHeight(Double.MAX_VALUE);
     }
 
-    private double computeTextAreaHeight(TextArea area) {
+    private void captureBaseWrapWidths(ConceptRow row) {
+        row.baseWrapWidthTerm = computeWrapWidth(row.termArea);
+        row.baseWrapWidthExplanation = computeWrapWidth(row.explanationArea);
+    }
+
+    private double computeWrapWidth(TextArea area) {
+        double width = area.getWidth();
+        if (width <= 0) {
+            width = area.prefWidth(-1);
+        }
+        double padding = area.snappedLeftInset() + area.snappedRightInset() + 24;
+        return Math.max(60, width - padding);
+    }
+
+    private double computeTextAreaHeight(TextArea area, double baseWrapWidth) {
         String text = area.getText();
         if (text == null || text.isEmpty()) {
             text = " ";
         }
 
-        double measuredWidth = area.getWidth();
-        double minMeasureWidth = 360; // collapse 시에도 높이가 급변하지 않도록 최소 측정 폭 유지
-        double wrappingWidth = Math.max(measuredWidth, minMeasureWidth)
-                - area.snappedLeftInset()
-                - area.snappedRightInset()
-                - 24; // 여유 padding
+        double wrappingWidth = baseWrapWidth > 0 ? baseWrapWidth : computeWrapWidth(area);
 
         Text helper = new Text(text);
         helper.setFont(area.getFont());
@@ -429,6 +439,8 @@ public class ConceptNoteController {
         final double wrongRate;
         final Integer pairId;
         final int totalAttempts;
+        double baseWrapWidthTerm;
+        double baseWrapWidthExplanation;
 
         ConceptRow(TextArea termArea, TextArea explanationArea, int sortOrder, double wrongRate, Integer pairId, int totalAttempts) {
             this.termArea = termArea;
@@ -437,6 +449,8 @@ public class ConceptNoteController {
             this.wrongRate = wrongRate;
             this.pairId = pairId;
             this.totalAttempts = totalAttempts;
+            this.baseWrapWidthTerm = -1;
+            this.baseWrapWidthExplanation = -1;
         }
     }
 
