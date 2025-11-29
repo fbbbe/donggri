@@ -90,4 +90,30 @@ public class FolderRepository {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 폴더를 삭제하면서 note_folders 매핑도 함께 정리한다.
+     */
+    public static void delete(int folderId) {
+        String deleteMappingsSql = "DELETE FROM note_folders WHERE folder_id = ?";
+        String deleteFolderSql = "DELETE FROM folders WHERE id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement deleteMappings = conn.prepareStatement(deleteMappingsSql);
+             PreparedStatement deleteFolder = conn.prepareStatement(deleteFolderSql)) {
+
+            conn.setAutoCommit(false);
+
+            deleteMappings.setInt(1, folderId);
+            deleteMappings.executeUpdate();
+
+            deleteFolder.setInt(1, folderId);
+            deleteFolder.executeUpdate();
+
+            conn.commit();
+        } catch (SQLException e) {
+            System.out.println("[DB] 폴더 삭제 중 오류 발생");
+            e.printStackTrace();
+        }
+    }
 }

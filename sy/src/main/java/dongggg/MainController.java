@@ -23,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color; // 색상
 import javafx.scene.shape.SVGPath; // SGV 추가 가능
+import javafx.scene.input.MouseButton;
 import javafx.util.Duration; // 애니매이션 시간 표현
 import javafx.scene.image.ImageView; //이미지 표시용 노드
 import dongggg.MascotProvider;
@@ -362,13 +363,48 @@ public class MainController {
 
         card.getChildren().addAll(iconHolder, labels);
         card.setOnMouseClicked(e -> {
+            if (e.getButton() != MouseButton.PRIMARY) {
+                return;
+            }
             if (selectedFolderCard == card) {
                 selectDefaultFilter();
             } else {
                 selectFilter(filterId, title, card);
             }
         });
+
+        if (filterId >= 0) {
+            card.setOnContextMenuRequested(e -> {
+                showFolderMenu(filterId, card, e.getScreenX(), e.getScreenY());
+                e.consume();
+            });
+        }
         return card;
+    }
+
+    private void showFolderMenu(int folderId, Region anchor, double screenX, double screenY) {
+        if (folderId < 0) {
+            return;
+        }
+
+        ContextMenu menu = new ContextMenu();
+        menu.getStyleClass().add("note-context-menu");
+
+        CustomMenuItem deleteItem = new CustomMenuItem(buildDeleteRow());
+        deleteItem.setOnAction(e -> {
+            FolderRepository.delete(folderId);
+
+            if (currentFilter == folderId) {
+                currentFilter = FILTER_ALL;
+                currentFolderName = "최근 노트";
+                selectedFolderCard = null;
+            }
+
+            loadFolders();
+        });
+
+        menu.getItems().add(deleteItem);
+        menu.show(anchor, screenX, screenY);
     }
 
     private void selectDefaultFilter() {
