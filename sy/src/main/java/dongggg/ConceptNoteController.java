@@ -208,14 +208,10 @@ public class ConceptNoteController {
      * 실제로 양쪽 컬럼에 새 입력 행을 추가하는 내부 메서드.
      */
     private void addEmptyRow() {
-        addRowWithValue("", "", nextSortOrder(), 0.0, null);
+        addRowWithValue("", "", nextSortOrder(), 0.0, null, 0, 0);
     }
 
-    private void addRowWithValue(String term, String explanation, int sortOrder, double wrongRate, Integer pairId) {
-        addRowWithValue(term, explanation, sortOrder, wrongRate, pairId, 0);
-    }
-
-    private void addRowWithValue(String term, String explanation, int sortOrder, double wrongRate, Integer pairId, int totalAttempts) {
+    private void addRowWithValue(String term, String explanation, int sortOrder, double wrongRate, Integer pairId, int totalAttempts, int correctCount) {
         // 왼쪽: 개념 입력 TextArea
         TextArea termArea = new TextArea();
         termArea.setPromptText("Ex. 데이터의 정의");
@@ -237,8 +233,21 @@ public class ConceptNoteController {
         termArea.setText(term);
         explanationArea.setText(explanation);
 
+        Label rateLabel = new Label();
+        rateLabel.getStyleClass().add("concept-rate-label");
+
+        VBox termBox = new VBox(6, termArea, rateLabel);
+        termBox.setFillWidth(true);
+
+        Label spacerLabel = new Label(" ");
+        spacerLabel.getStyleClass().add("concept-rate-label");
+        spacerLabel.setOpacity(0);
+        VBox explanationBox = new VBox(6, explanationArea, spacerLabel);
+        explanationBox.setFillWidth(true);
+
         // 행 객체 하나 만들어서 리스트에 넣어두기
-        ConceptRow row = new ConceptRow(termArea, explanationArea, sortOrder, wrongRate, pairId, totalAttempts);
+        ConceptRow row = new ConceptRow(termArea, explanationArea, termBox, explanationBox, rateLabel, sortOrder, wrongRate, pairId, totalAttempts, correctCount);
+        updateRateLabel(row);
         rows.add(row);
 
         // 텍스트/폭 변화에 맞춰 자동으로 높이를 키워 스크롤 없이 보여준다.
@@ -271,8 +280,8 @@ public class ConceptNoteController {
         explanationContainer.getChildren().clear();
 
         for (ConceptRow row : ordered) {
-            conceptContainer.getChildren().add(row.termArea);
-            explanationContainer.getChildren().add(row.explanationArea);
+            conceptContainer.getChildren().add(row.termBox);
+            explanationContainer.getChildren().add(row.explanationBox);
         }
     }
 
@@ -283,6 +292,20 @@ public class ConceptNoteController {
         }
         updateSortMenuLabel();
         renderRows();
+    }
+
+    private void updateRateLabel(ConceptRow row) {
+        if (row == null || row.rateLabel == null) {
+            return;
+        }
+        if (row.totalAttempts <= 0) {
+            row.rateLabel.setText("정답률: -");
+            return;
+        }
+        double rate = (row.correctCount / (double) row.totalAttempts) * 100.0;
+        double rounded = Math.round(rate * 10) / 10.0;
+        String display = rounded % 1 == 0 ? String.format("정답률: %.0f%%", rounded) : String.format("정답률: %.1f%%", rounded);
+        row.rateLabel.setText(display);
     }
 
     private void updateSortMenuLabel() {
@@ -324,7 +347,8 @@ public class ConceptNoteController {
                         p.getSortOrder(),
                         p.getWrongRate(),
                         p.getId(),
-                        p.getTotalAttempts()));
+                        p.getTotalAttempts(),
+                        p.getCorrectCount()));
         renderRows();
         updateSortMenuLabel();
         if (deleteButton != null) {
@@ -435,20 +459,28 @@ public class ConceptNoteController {
     private static class ConceptRow {
         final TextArea termArea;
         final TextArea explanationArea;
+        final VBox termBox;
+        final VBox explanationBox;
+        final Label rateLabel;
         final int sortOrder;
         final double wrongRate;
         final Integer pairId;
         final int totalAttempts;
+        final int correctCount;
         double baseWrapWidthTerm;
         double baseWrapWidthExplanation;
 
-        ConceptRow(TextArea termArea, TextArea explanationArea, int sortOrder, double wrongRate, Integer pairId, int totalAttempts) {
+        ConceptRow(TextArea termArea, TextArea explanationArea, VBox termBox, VBox explanationBox, Label rateLabel, int sortOrder, double wrongRate, Integer pairId, int totalAttempts, int correctCount) {
             this.termArea = termArea;
             this.explanationArea = explanationArea;
+            this.termBox = termBox;
+            this.explanationBox = explanationBox;
+            this.rateLabel = rateLabel;
             this.sortOrder = sortOrder;
             this.wrongRate = wrongRate;
             this.pairId = pairId;
             this.totalAttempts = totalAttempts;
+            this.correctCount = correctCount;
             this.baseWrapWidthTerm = -1;
             this.baseWrapWidthExplanation = -1;
         }
