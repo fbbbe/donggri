@@ -42,11 +42,11 @@ public class WardrobeController {
     private Pane effectLayer;
 
     private final Random random = new Random();
-    private static final String HEART_PATH = "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 "
-            + "2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09 "
-            + "C13.09 3.81 14.76 3 16.5 3 "
-            + "C19.58 3 22 5.42 22 8.5 "
-            + "c0 3.78-3.4 6.86-8.55 11.54Z";
+    // lucide heart 아이콘 path
+    private static final String HEART_PATH = "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0 " +
+            "A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5 " +
+            "l-5.492 5.313a2 2 0 0 1-3 .019L5 15 " +
+            "c-1.5-1.5-3-3.2-3-5.5";
     private static final String[] HEART_GRADIENTS = new String[] {
             "linear-gradient(from 0% 0% to 0% 100%, #ff7aa2 0%, #ffd07f 100%)",
             "linear-gradient(from 0% 0% to 0% 100%, #ff9ec7 0%, #ffe780 100%)",
@@ -129,7 +129,8 @@ public class WardrobeController {
             return;
         }
 
-        StackPane heart = createHeartNode();
+        HeartNode heart = createHeartNode();
+        StackPane heartNode = heart.node();
 
         double layerWidth = effectLayer.getWidth() > 0
                 ? effectLayer.getWidth()
@@ -142,9 +143,9 @@ public class WardrobeController {
         double startX = 40 + random.nextDouble() * (layerWidth - 80);
         double startY = layerHeight + 40;
 
-        heart.setLayoutX(startX);
-        heart.setLayoutY(startY);
-        effectLayer.getChildren().add(heart);
+        heartNode.setLayoutX(startX);
+        heartNode.setLayoutY(startY);
+        effectLayer.getChildren().add(heartNode);
 
         // 랜덤 방향: 직선/대각선 모두 포함 (X는 좌우로 퍼뜨리기)
         double targetY = -80 - random.nextDouble() * 80;
@@ -153,24 +154,25 @@ public class WardrobeController {
 
         Duration duration = Duration.seconds(2 + random.nextDouble());
 
-        TranslateTransition move = new TranslateTransition(duration, heart);
+        TranslateTransition move = new TranslateTransition(duration, heartNode);
         move.setFromY(0);
         move.setToY(targetY - startY);
         move.setFromX(0);
         move.setToX(targetX);
 
-        FadeTransition fade = new FadeTransition(duration, heart);
+        FadeTransition fade = new FadeTransition(duration, heartNode);
         fade.setFromValue(1.0);
         fade.setToValue(0.0);
 
-        ScaleTransition scale = new ScaleTransition(duration, heart);
-        scale.setFromX(0.8);
-        scale.setFromY(0.8);
-        scale.setToX(1.2);
-        scale.setToY(1.2);
+        double baseScale = heart.baseScale();
+        ScaleTransition scale = new ScaleTransition(duration, heartNode);
+        scale.setFromX(baseScale * 0.9);
+        scale.setFromY(baseScale * 0.9);
+        scale.setToX(baseScale * 1.1);
+        scale.setToY(baseScale * 1.1);
 
         ParallelTransition combo = new ParallelTransition(move, fade, scale);
-        combo.setOnFinished(e -> effectLayer.getChildren().remove(heart));
+        combo.setOnFinished(e -> effectLayer.getChildren().remove(heartNode));
         combo.play();
     }
 
@@ -277,29 +279,37 @@ public class WardrobeController {
         playHearts();
     }
 
-    private StackPane createHeartNode() {
+    private HeartNode createHeartNode() {
         SVGPath shape = new SVGPath();
         shape.setContent(HEART_PATH);
         shape.getStyleClass().add("floating-heart-shape");
 
         String fill = HEART_GRADIENTS[random.nextInt(HEART_GRADIENTS.length)];
-        shape.setStyle("-fx-fill: " + fill + "; -fx-stroke: rgba(255,255,255,0.72); -fx-stroke-width: 2.2;");
+        shape.setStyle(
+                "-fx-fill: " + fill +
+                        "; -fx-stroke: rgba(255,255,255,0.72);" +
+                        "; -fx-stroke-width: 1.6;");
 
         StackPane node = new StackPane(shape);
         node.setPickOnBounds(false);
         node.getStyleClass().add("floating-heart");
 
-        double scale = randomRange(1.4, 2.2);
-        node.setScaleX(scale);
-        node.setScaleY(scale);
+        // ✅ 크게 키운 뒤 (기본 대비 10배 이상), 부모 노드 스케일에 적용
+        double baseScale = randomRange(12.0, 18.0);
+        node.setScaleX(baseScale);
+        node.setScaleY(baseScale);
+
+        // 회전만 부모에 적용
         node.setRotate(randomRange(-18, 18));
 
-        return node;
+        return new HeartNode(node, baseScale);
     }
 
     private double randomRange(double min, double max) {
         return min + random.nextDouble() * (max - min);
     }
+
+    private record HeartNode(StackPane node, double baseScale) {}
 
     private String skinNameForIndex(int index) {
         if (index >= 0 && index < SKIN_NAMES.size()) {
