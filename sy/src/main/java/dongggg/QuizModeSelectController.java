@@ -38,6 +38,8 @@ public class QuizModeSelectController {
 
     private List<Note> selectedNotes = new ArrayList<>();
     private int totalQuestions = 0;
+    private int maxSelectableQuestions = 1;
+    private boolean singleQuestionMode = false;
 
     // QuizStart 화면의 Root 저장
     private Parent previousRoot;
@@ -53,10 +55,12 @@ public class QuizModeSelectController {
 
     @FXML
     private void initialize() {
-        worstCountSlider.valueProperty().addListener((obs, o, n) -> updateWorstCountDisplay());
         worstCountSlider.setMin(1);
-        worstCountSlider.setMax(1.1); // 문제 1개일 때도 동그라미 보이게
-
+        worstCountSlider.setMajorTickUnit(1);
+        worstCountSlider.setMinorTickCount(0);
+        worstCountSlider.setBlockIncrement(1);
+        worstCountSlider.setSnapToTicks(true);
+        worstCountSlider.valueProperty().addListener((obs, o, n) -> handleWorstSliderChange(n.doubleValue()));
     }
 
     private void updateCounts() {
@@ -66,25 +70,82 @@ public class QuizModeSelectController {
         totalCountLabel.setText(totalQuestions + "문제");
         totalTimeLabel.setText(estimateMinutes(totalQuestions) + "분");
 
-        int max = Math.max(1, totalQuestions);
-        int defaultWorst = Math.min(10, max);
-        // 문제 1개일 때도 슬라이더 동그라미(thumb) 보이게 max 살짝 늘리기
-        if (max == 1) {
-            worstCountSlider.setMax(1.1);
-        } else {
-            worstCountSlider.setMax(max);
-        }
+        maxSelectableQuestions = Math.max(1, totalQuestions);
+        singleQuestionMode = totalQuestions == 1;
 
-        worstCountSlider.setValue(defaultWorst);
+        double sliderMax = singleQuestionMode ? 2.0 : maxSelectableQuestions;
+        int defaultWorst = Math.min(10, maxSelectableQuestions);
+
+        worstCountSlider.setMax(sliderMax);
+        setSliderToCount(defaultWorst);
+        worstCountSlider.setDisable(totalQuestions <= 0);
 
         updateWorstCountDisplay();
     }
 
     private void updateWorstCountDisplay() {
+        updateWorstCountDisplay(getSelectedWorstCount());
+    }
+
+    private void updateWorstCountDisplay(int count) {
+        int clamped = clampToQuestionLimit(count);
+        worstCountValueLabel.setText(clamped + "");
+        worstSelectedCountLabel.setText(clamped + "문제");
+        worstTimeLabel.setText(estimateMinutes(clamped) + "분");
+    }
+
+    private void handleWorstSliderChange(double newValue) {
+        if (singleQuestionMode) {
+            double pinnedValue = worstCountSlider.getMax();
+            if (Math.abs(newValue - pinnedValue) > 0.0001) {
+                worstCountSlider.setValue(pinnedValue);
+                return;
+            }
+            updateWorstCountDisplay(1);
+            return;
+        }
+
+        double snapped = snapSliderValue(newValue);
+        if (Math.abs(snapped - newValue) > 0.0001) {
+            worstCountSlider.setValue(snapped);
+            return;
+        }
+
+        updateWorstCountDisplay((int) snapped);
+    }
+
+    private double snapSliderValue(double value) {
+        double min = worstCountSlider.getMin();
+        double max = worstCountSlider.getMax();
+        double snapped = Math.round(value);
+        if (snapped < min)
+            snapped = min;
+        if (snapped > max)
+            snapped = max;
+        return snapped;
+    }
+
+    private void setSliderToCount(int desiredCount) {
+        if (singleQuestionMode) {
+            worstCountSlider.setValue(worstCountSlider.getMax());
+            return;
+        }
+
+        int clamped = clampToQuestionLimit(desiredCount);
+        worstCountSlider.setValue(clamped);
+    }
+
+    private int getSelectedWorstCount() {
         int count = (int) Math.round(worstCountSlider.getValue());
-        worstCountValueLabel.setText(count + "");
-        worstSelectedCountLabel.setText(count + "문제");
-        worstTimeLabel.setText(estimateMinutes(count) + "분");
+        return clampToQuestionLimit(count);
+    }
+
+    private int clampToQuestionLimit(int value) {
+        if (value < 1)
+            return 1;
+        if (value > maxSelectableQuestions)
+            return maxSelectableQuestions;
+        return value;
     }
 
     private int estimateMinutes(int questions) {
@@ -112,8 +173,7 @@ public class QuizModeSelectController {
     }
 
     private void quickSelect(int count, Button button) {
-        int max = (int) worstCountSlider.getMax();
-        worstCountSlider.setValue(Math.min(count, max));
+        setSliderToCount(count);
         updateQuickSelectStyles(button);
     }
 
@@ -128,7 +188,7 @@ public class QuizModeSelectController {
     private void onStartWorst() {
         if (totalQuestions <= 0)
             return;
-        int count = (int) worstCountSlider.getValue();
+        int count = getSelectedWorstCount();
         startQuiz(QuizService.QuizMode.WORST, count);
     }
 
