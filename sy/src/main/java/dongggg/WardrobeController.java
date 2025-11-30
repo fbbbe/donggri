@@ -17,12 +17,10 @@ import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.Label;
 import java.util.Random;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class WardrobeController {
 
@@ -44,6 +42,17 @@ public class WardrobeController {
     private Pane effectLayer;
 
     private final Random random = new Random();
+    private static final String HEART_PATH = "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 "
+            + "2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09 "
+            + "C13.09 3.81 14.76 3 16.5 3 "
+            + "C19.58 3 22 5.42 22 8.5 "
+            + "c0 3.78-3.4 6.86-8.55 11.54Z";
+    private static final String[] HEART_GRADIENTS = new String[] {
+            "linear-gradient(from 0% 0% to 0% 100%, #ff7aa2 0%, #ffd07f 100%)",
+            "linear-gradient(from 0% 0% to 0% 100%, #ff9ec7 0%, #ffe780 100%)",
+            "linear-gradient(from 0% 0% to 0% 100%, #ff84a5 0%, #ffc6a8 100%)",
+            "linear-gradient(from 0% 0% to 0% 100%, #ff7e80 0%, #ffd166 100%)"
+    };
 
     private int currentLevel = 1;
     private static final List<String> SKIN_NAMES = List.of(
@@ -120,9 +129,7 @@ public class WardrobeController {
             return;
         }
 
-        // 💖 하트 노드 생성
-        Label heart = new Label("❤");
-        heart.getStyleClass().add("floating-heart");
+        StackPane heart = createHeartNode();
 
         double layerWidth = effectLayer.getWidth() > 0
                 ? effectLayer.getWidth()
@@ -139,13 +146,18 @@ public class WardrobeController {
         heart.setLayoutY(startY);
         effectLayer.getChildren().add(heart);
 
-        // 위로 날아가는 목표 Y
+        // 랜덤 방향: 직선/대각선 모두 포함 (X는 좌우로 퍼뜨리기)
         double targetY = -80 - random.nextDouble() * 80;
+        double maxHorizontalDrift = Math.max(120, layerWidth * 0.25);
+        double targetX = (random.nextDouble() * 2 - 1) * maxHorizontalDrift; // -max ~ +max
+
         Duration duration = Duration.seconds(2 + random.nextDouble());
 
         TranslateTransition move = new TranslateTransition(duration, heart);
         move.setFromY(0);
         move.setToY(targetY - startY);
+        move.setFromX(0);
+        move.setToX(targetX);
 
         FadeTransition fade = new FadeTransition(duration, heart);
         fade.setFromValue(1.0);
@@ -263,6 +275,30 @@ public class WardrobeController {
     @FXML
     private void onConfirm() {
         playHearts();
+    }
+
+    private StackPane createHeartNode() {
+        SVGPath shape = new SVGPath();
+        shape.setContent(HEART_PATH);
+        shape.getStyleClass().add("floating-heart-shape");
+
+        String fill = HEART_GRADIENTS[random.nextInt(HEART_GRADIENTS.length)];
+        shape.setStyle("-fx-fill: " + fill + "; -fx-stroke: rgba(255,255,255,0.72); -fx-stroke-width: 2.2;");
+
+        StackPane node = new StackPane(shape);
+        node.setPickOnBounds(false);
+        node.getStyleClass().add("floating-heart");
+
+        double scale = randomRange(1.4, 2.2);
+        node.setScaleX(scale);
+        node.setScaleY(scale);
+        node.setRotate(randomRange(-18, 18));
+
+        return node;
+    }
+
+    private double randomRange(double min, double max) {
+        return min + random.nextDouble() * (max - min);
     }
 
     private String skinNameForIndex(int index) {
