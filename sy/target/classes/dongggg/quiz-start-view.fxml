@@ -58,7 +58,7 @@
                                 styleClass="button-outlined"
                                 onAction="#goBack"/>
 
-                        <Button text="시험 시작"
+                        <Button text="다음"
                                 fx:id="startButton"
                                 styleClass="button-primary"
                                 disable="true"

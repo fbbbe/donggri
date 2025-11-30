@@ -159,10 +159,6 @@ public class NoteDetailController {
         autoGrowContentArea();
     }
 
-    /**
-     * 내용 입력 시에도 높이를 고정시켜,
-     * 드래그/입력으로 TextArea가 비정상적으로 커지지 않도록 한다.
-     */
     private void setupAutoGrow() {
         contentArea.textProperty().addListener((obs, o, n) -> autoGrowContentArea());
         autoGrowContentArea();
@@ -171,10 +167,12 @@ public class NoteDetailController {
     private void autoGrowContentArea() {
         if (contentArea == null)
             return;
-        int fixedRows = 8; // 고정 높이 유지
-        contentArea.setPrefRowCount(fixedRows);
+        String text = contentArea.getText();
+        int lines = text == null || text.isEmpty() ? 1 : text.split("\n", -1).length;
+        int rowCount = Math.max(6, Math.min(60, lines + 2));
+        contentArea.setPrefRowCount(rowCount);
         contentArea.setMinHeight(Region.USE_PREF_SIZE);
-        contentArea.setMaxHeight(Region.USE_PREF_SIZE);
+        contentArea.setMaxHeight(Region.USE_COMPUTED_SIZE);
     }
 
     private void deferBlurInputs() {

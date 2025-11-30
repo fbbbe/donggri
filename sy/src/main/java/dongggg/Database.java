@@ -75,7 +75,8 @@ public class Database {
                         cumulative_score INTEGER NOT NULL DEFAULT 0,
                         cumulative_correct INTEGER NOT NULL DEFAULT 0,
                         exam_count INTEGER NOT NULL DEFAULT 0,
-                        selected_skin INTEGER NOT NULL DEFAULT 1
+                        selected_skin INTEGER NOT NULL DEFAULT 1,
+                        bubble_text TEXT DEFAULT ''
                     );
                     """;
             stmt.execute(createDonggriStatus);
@@ -134,6 +135,7 @@ public class Database {
 
     private static void ensureDonggriStatusColumns(Connection conn) throws SQLException {
         ensureColumnExists(conn, "donggri_status", "selected_skin", "INTEGER NOT NULL DEFAULT 1");
+        ensureColumnExists(conn, "donggri_status", "bubble_text", "TEXT DEFAULT ''");
     }
 
     /**
@@ -173,7 +175,7 @@ public class Database {
             }
         }
         // 1, 0, 0, 0, 1
-        String insertSql = "INSERT INTO donggri_status (id, cumulative_score, cumulative_correct, exam_count, selected_skin) VALUES (1, 999999, 25244, 0, 1)";
+        String insertSql = "INSERT INTO donggri_status (id, cumulative_score, cumulative_correct, exam_count, selected_skin, bubble_text) VALUES (1, 999999, 25244, 0, 1, '')";
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(insertSql);
         }

@@ -332,6 +332,9 @@ public class MainController {
             folderRow.getChildren().add(createFolderCard(folder.getName(), count, folder.getId()));
         }
 
+        // 새로 만든 카드들에도 항상 hover 효과 재적용
+        applyFolderHoverAnimations();
+
         reselectCurrentFolder();
     }
 
@@ -507,14 +510,16 @@ public class MainController {
         folderRow.getChildren().stream()
                 .filter(node -> node instanceof Region)
                 .map(node -> (Region) node)
-                .forEach(region -> installHoverAnimation(
-                        region,
-                        Color.web("#ffffff"),
-                        Color.web("#fff9e6"),
-                        Color.web("#e8dff5"),
-                        Color.web("#ffb547"),
-                        6, 18,
-                        0.05, 0.2));
+                .forEach(region -> {
+                    installHoverAnimation(
+                            region,
+                            Color.web("#ffffff"),
+                            Color.web("#fff9e6"),
+                            Color.web("#e8dff5"),
+                            Color.web("#ffb547"),
+                            6, 18,
+                            0.05, 0.2);
+                });
     }
 
     @FXML

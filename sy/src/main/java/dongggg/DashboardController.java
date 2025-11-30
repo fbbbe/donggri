@@ -62,10 +62,11 @@ public class DashboardController {
 
     private void setupBubble() {
         if (bubbleTextArea != null) {
-            String text = bubbleTextArea.getText();
+            String text = DonggriRepository.getBubbleText();
             if (text == null || text.isBlank()) {
-                bubbleTextArea.setText(DEFAULT_BUBBLE_TEXT);
+                text = DEFAULT_BUBBLE_TEXT;
             }
+            bubbleTextArea.setText(text);
             bubbleTextArea.setEditable(false);
         }
     }
@@ -163,7 +164,9 @@ public class DashboardController {
         if (event.getCode() == KeyCode.ENTER && !event.isShiftDown()) {
             event.consume();
             String trimmed = bubbleTextArea.getText() == null ? "" : bubbleTextArea.getText().trim();
-            bubbleTextArea.setText(trimmed.isEmpty() ? DEFAULT_BUBBLE_TEXT : trimmed);
+            String finalText = trimmed.isEmpty() ? DEFAULT_BUBBLE_TEXT : trimmed;
+            bubbleTextArea.setText(finalText);
+            DonggriRepository.updateBubbleText(finalText);
             bubbleTextArea.setEditable(false);
             bubbleTextArea.deselect();
         }

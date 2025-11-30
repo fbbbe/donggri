@@ -45,6 +45,33 @@ public class DonggriRepository {
         return new DonggriStatus(0, 0, 0);
     }
 
+    public static String getBubbleText() {
+        String sql = "SELECT bubble_text FROM donggri_status WHERE id = 1";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("bubble_text");
+            }
+        } catch (SQLException e) {
+            System.out.println("[DB] bubble_text 조회 중 오류 발생");
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static void updateBubbleText(String text) {
+        String sql = "UPDATE donggri_status SET bubble_text = ? WHERE id = 1";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, text);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("[DB] bubble_text 업데이트 중 오류 발생");
+            e.printStackTrace();
+        }
+    }
+
     public static void updateStatus(DonggriStatus status) {
         String sql = "UPDATE donggri_status SET cumulative_score = ?, cumulative_correct = ?, exam_count = ? WHERE id = 1";
 
@@ -226,31 +253,26 @@ public class DonggriRepository {
 
 
     public static int getAccuracyPercent() {
-
-        // 🔥 최근 시험 결과가 있으면 그걸 우선 표시
-        if (lastTotal > 0) {
-            return getLastExamAccuracy();
-        }
-
-        // 🔥 없으면 누적값 기반 표시
-        String sql = "SELECT cumulative_correct, cumulative_score FROM donggri_status WHERE id = 1";
+        String sql = "SELECT SUM(total_attempts) AS attempts, SUM(correct_count) AS correct FROM concept_pairs";
 
         try (Connection conn = Database.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery()) {
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.next()) {
-                int correct = rs.getInt("cumulative_correct");
-                int total   = rs.getInt("cumulative_score");
+                int attempts = rs.getInt("attempts");
+                int correct = rs.getInt("correct");
 
-                if (total == 0) return 0;
+                if (attempts <= 0) {
+                    return 0;
+                }
 
-                double percent = (correct / (double) total) * 100.0;
+                double percent = (correct / (double) attempts) * 100.0;
                 return (int) Math.round(percent);
             }
 
         } catch (SQLException e) {
-            System.out.println("[DB] 정답률 조회 오류");
+            System.out.println("[DB] 누적 정답률 조회 오류");
             e.printStackTrace();
         }
 
