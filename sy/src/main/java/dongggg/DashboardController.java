@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import dongggg.MascotProvider;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class DashboardController {
 
@@ -29,6 +32,10 @@ public class DashboardController {
     private Label accuracyLabel;
     @FXML
     private ImageView mascotImageView;
+    @FXML
+    private TextArea bubbleTextArea;
+
+    private static final String DEFAULT_BUBBLE_TEXT = "묙표를 같이 달성해요!";
 
     @FXML
     private void initialize() {
@@ -44,12 +51,23 @@ public class DashboardController {
         if (quizButton != null) {
             HoverEffects.installPinkHover(quizButton);
         }
+        setupBubble();
         updateLevelCard();
         updateConceptNoteCount();
         updateExamCount();
         updateAccuracy();
         updateMascotImage(DonggriRepository.getLevelInfo().getCurrentLevel());
 
+    }
+
+    private void setupBubble() {
+        if (bubbleTextArea != null) {
+            String text = bubbleTextArea.getText();
+            if (text == null || text.isBlank()) {
+                bubbleTextArea.setText(DEFAULT_BUBBLE_TEXT);
+            }
+            bubbleTextArea.setEditable(false);
+        }
     }
 
     /** 🔥 개념 노트 개수 갱신 */
@@ -126,6 +144,28 @@ public class DashboardController {
         int accuracy = DonggriRepository.getAccuracyPercent();
         if (accuracyLabel != null) {
             accuracyLabel.setText(accuracy + "%");
+        }
+    }
+
+    @FXML
+    private void onBubbleClick() {
+        if (bubbleTextArea == null)
+            return;
+        bubbleTextArea.setEditable(true);
+        bubbleTextArea.requestFocus();
+        bubbleTextArea.positionCaret(bubbleTextArea.getText().length());
+    }
+
+    @FXML
+    private void onBubbleKeyPressed(KeyEvent event) {
+        if (bubbleTextArea == null)
+            return;
+        if (event.getCode() == KeyCode.ENTER && !event.isShiftDown()) {
+            event.consume();
+            String trimmed = bubbleTextArea.getText() == null ? "" : bubbleTextArea.getText().trim();
+            bubbleTextArea.setText(trimmed.isEmpty() ? DEFAULT_BUBBLE_TEXT : trimmed);
+            bubbleTextArea.setEditable(false);
+            bubbleTextArea.deselect();
         }
     }
 

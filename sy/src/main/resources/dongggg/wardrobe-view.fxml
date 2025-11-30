@@ -15,7 +15,7 @@
     <children>
         <BorderPane>
             <top>
-                <HBox alignment="CENTER_LEFT" spacing="10" styleClass="wardrobe-topbar">
+                <HBox alignment="CENTER_LEFT" spacing="3" styleClass="wardrobe-topbar">
                     <padding>
                         <Insets top="20" right="20" bottom="10" left="20"/>
                     </padding>

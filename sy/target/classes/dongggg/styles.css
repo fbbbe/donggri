@@ -1173,6 +1173,42 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 24, 0.3, 0, 6);
 }
 
+.dashboard-bubble {
+    -fx-background-color: linear-gradient(to right, #f7f2ff, #fff6df);
+    -fx-background-radius: 18;
+    -fx-background-insets: 0;
+    -fx-border-color: #E8DFF5;
+    -fx-border-radius: 16;
+    -fx-border-width: 1.5;
+    -fx-padding: 4 16 4 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 12, 0.3, 0, 3);
+}
+
+.dashboard-bubble-text {
+    -fx-text-fill: #7B639F;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-line-spacing: 2;
+}
+
+.dashboard-bubble-editor {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-padding: 14 8 6 8;
+}
+
+.dashboard-bubble-editor .content,
+.dashboard-bubble-editor .scroll-pane,
+.dashboard-bubble-editor .viewport,
+.dashboard-bubble-editor .scroll-pane .viewport,
+.dashboard-bubble-editor .scroll-pane .content {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
 .dashboard-section-label {
     -fx-font-size: 13px;
     -fx-text-fill: #D9B5FF;
